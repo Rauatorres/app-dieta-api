@@ -1,8 +1,10 @@
 import Fastify from "fastify";
 import routes from "./routes";
+import fastifyFormbody from "@fastify/formbody";
 
 const fastify = Fastify({ logger: true });
 
+fastify.register(fastifyFormbody);
 fastify.register(routes);
 
 fastify.listen({ port: 3000 }, (err, adress) => {
