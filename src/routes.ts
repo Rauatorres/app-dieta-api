@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { cadastrar } from "./controller/usuario";
+import { cadastrar, login } from "./controller/usuario";
 
 export default (fastify: FastifyInstance) => {
     fastify.get('/', (_request: FastifyRequest, _reply: FastifyReply) => {
@@ -8,5 +8,9 @@ export default (fastify: FastifyInstance) => {
 
     fastify.post('/cadastrar', async (request: FastifyRequest, reply: FastifyReply) => {
         return await cadastrar(request, reply);
+    });
+
+    fastify.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
+        return await login(request, reply);
     });
 };

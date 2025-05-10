@@ -5,6 +5,7 @@ interface UsuarioQueryResult{
 }
 
 type QueryResult = UsuarioQueryResult;
-type ApiReturn = { success: boolean, result: QueryResult | { msg: string } };
+type ErrorMsgObj = { msg: string };
+type QueryReturn = { success: boolean, result: QueryResult | ErrorMsgObj};
 
-export type { QueryResult, UsuarioQueryResult, ApiReturn };
+export type { QueryResult, UsuarioQueryResult, QueryReturn };

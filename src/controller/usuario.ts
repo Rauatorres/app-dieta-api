@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import Usuario from "./class/Usuario";
-import type { ApiReturn } from "../types";
+import type { QueryReturn } from "../types";
 
 
-const cadastrar = async (request: FastifyRequest, _reply: FastifyReply): Promise<ApiReturn> => {
+const cadastrar = async (request: FastifyRequest, _reply: FastifyReply): Promise<QueryReturn> => {
     const reqBody = request.body as { nome: string, senha: string };
 
     if(!('nome' in reqBody)){
@@ -19,4 +19,12 @@ const cadastrar = async (request: FastifyRequest, _reply: FastifyReply): Promise
     return await usuario.cadastrar();
 }
 
-export { cadastrar };
+const login = async (request: FastifyRequest, _reply: FastifyReply) => {
+    const reqBody = request.body as { nome: string, senha: string };
+
+    const usuario = new Usuario(reqBody.nome, reqBody.senha);
+
+    return await usuario.login();
+}
+
+export { cadastrar, login };

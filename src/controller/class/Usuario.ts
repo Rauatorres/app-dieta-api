@@ -2,26 +2,40 @@ import { PrismaClient } from "../../../generated/prisma";
 import { createHash } from "crypto";
 import Dia from "./Dia";
 import Prato from "./Prato";
-import { UsuarioQueryResult } from "../../types";
+import { UsuarioQueryResult, QueryReturn } from "../../types";
 
 export default class Usuario{
     pratos: Prato[];
     dias: Dia[];
-    logado: boolean;
     prisma: PrismaClient;
 
     constructor(public nome: string, public senha: string){
-        this.logado = false;
         this.pratos = [];
         this.dias = [];
 
         this.prisma = new PrismaClient();
     }
 
-    async login(){
-        const senhaHash = createHash('md5').update(this.senha).digest('hex');
+    async usuarioExiste(){
+        const usuarioExiste = await this.prisma.usuario.findFirst({
+            where: {
+                nome: this.nome
+            }
+        });
 
-        if(!this.logado){
+        if(usuarioExiste){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    async login(): Promise<QueryReturn>{
+        const senhaHash = createHash('md5').update(this.senha).digest('hex');
+        let result: { msg: string } | UsuarioQueryResult;
+        let success: boolean = false;
+
+        if(await this.usuarioExiste()){
             const usuario = await this.prisma.usuario.findUnique(
                 {
                     where: {
@@ -30,23 +44,26 @@ export default class Usuario{
                     }
                 }
             );
-            this.logado = true;
-            return usuario;
+            if(usuario){
+                result = usuario;
+                success = true;
+            }else{
+                result = { msg: 'Senha incorreta' };
+            }
         }else{
-            return false;
+            result = { msg: 'Usuário não encontrado' };
         }
+
+
+        return { success: success, result: result };
     }
 
-    async cadastrar(){
+    async cadastrar(): Promise<QueryReturn>{
         const senhaHash = createHash('md5').update(this.senha).digest('hex');
         let success: boolean = false;
         let result: { msg: string } | UsuarioQueryResult = { msg: 'O usuário já existe' };
 
-        const usuarioVerificado = await this.prisma.usuario.findFirst({
-            where: {
-                nome: this.nome
-            }
-        });
+        const usuarioVerificado = await this.usuarioExiste();
 
         if(!usuarioVerificado){
             if(this.nome != '' && this.senha != ''){
