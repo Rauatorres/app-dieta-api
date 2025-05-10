@@ -1,0 +1,26 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./dist/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rauatorres/app-dieta-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rauatorres/app-dieta-api/issues"
+  },
+  "homepage": "https://github.com/Rauatorres/app-dieta-api#readme",
+  "dependencies": {
+    "@prisma/client": "^6.7.0",
+    "@types/node": "^22.15.17",
+    "fastify": "^5.3.2",
+    "prisma": "^6.7.0"
+  }
+}
