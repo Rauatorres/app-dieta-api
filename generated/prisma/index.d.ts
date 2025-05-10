@@ -5778,14 +5778,14 @@ export namespace Prisma {
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    nome?: string
     AND?: UsuarioWhereInput | UsuarioWhereInput[]
     OR?: UsuarioWhereInput[]
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
-    nome?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
     Prato?: PratoListRelationFilter
     Dia?: DiaListRelationFilter
-  }, "id">
+  }, "id" | "nome">
 
   export type UsuarioOrderByWithAggregationInput = {
     id?: SortOrder
