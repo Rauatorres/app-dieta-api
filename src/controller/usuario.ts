@@ -21,8 +21,18 @@ const login = async (request: FastifyRequest, _reply: FastifyReply): Promise<Que
     const reqBody = request.body as { nome: string, senha: string };
 
     const usuario = new Usuario(reqBody.nome);
+    const login = await usuario.login(reqBody.senha)
 
-    return await usuario.login(reqBody.senha);
+    let result: QueryReturn;
+
+    if(login.success){
+        usuario.init();
+        result = { ...login, usuario: usuario };
+    }else{
+        result = login;
+    }
+
+    return result;
 }
 
 const excluir = async (request: FastifyRequest, _reply: FastifyReply): Promise<QueryReturn> => {
@@ -40,6 +50,5 @@ const editar = async (request: FastifyRequest, _reply: FastifyReply): Promise<Qu
 
     return await usuario.editar(reqBody.campos);
 }
-
 
 export { cadastrar, login, excluir, editar };

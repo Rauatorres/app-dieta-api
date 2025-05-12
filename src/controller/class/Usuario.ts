@@ -1,34 +1,69 @@
-import { PrismaClient } from "../../../generated/prisma";
 import { createHash } from "crypto";
 import Dia from "./Dia";
 import Prato from "./Prato";
-import type { UsuarioQueryResult, QueryReturn, ErrorMsgObj } from "../../types";
+import type { UsuarioQueryResult, QueryReturn, ErrorMsgObj, PratoQueryResult, DiaQueryResult } from "../../types";
+import prisma from "./prismaConnection";
 
 export default class Usuario{
-    senha: string;
     pratos: Prato[];
     dias: Dia[];
-    prisma: PrismaClient;
 
     constructor(public nome: string){
-        this.senha = '';
         this.pratos = [];
         this.dias = [];
-
-        this.prisma = new PrismaClient();
     }
 
-    async usuarioExiste(){
-        const usuarioExiste = await this.prisma.usuario.findFirst({
+    private async usuarioExiste(){
+        const usuario = await prisma.usuario.findFirst({
             where: {
                 nome: this.nome
             }
         });
 
-        if(usuarioExiste){
-            return true;
+        if(usuario){
+            return usuario;
         }else{
             return false;
+        }
+    }
+
+    async init(): Promise<void>{
+        if(await this.usuarioExiste()){
+            const usuario = await prisma.usuario.findUnique(
+                {
+                    where: {
+                        nome: this.nome
+                    },
+                    include: {
+                        pratos: true,
+                        dias: true
+                    }
+                }
+            );
+
+            if(usuario){
+                let pratos: PratoQueryResult[] = usuario.pratos;
+                let dias: DiaQueryResult[] = usuario.dias;
+                
+                pratos.forEach(pratoObj => {
+                    const { id, nome, categoria, ingredientes, preparo } = pratoObj;
+    
+                    const prato = new Prato(nome, categoria, ingredientes || undefined, preparo || undefined);
+                    prato.id = id;
+    
+                    this.pratos.push(prato);
+                });
+
+                dias.forEach(diaObj => {
+                    const { nome } = diaObj;
+    
+                    const dia = new Dia(nome);
+    
+                    this.dias.push(dia);
+                });
+
+            }
+            
         }
     }
 
@@ -38,7 +73,7 @@ export default class Usuario{
         let success: boolean = false;
 
         if(await this.usuarioExiste()){
-            const usuario = await this.prisma.usuario.findUnique(
+            const usuario = await prisma.usuario.findUnique(
                 {
                     where: {
                         nome: this.nome,
@@ -47,7 +82,7 @@ export default class Usuario{
                 }
             );
             if(usuario){
-                result = usuario;
+                result = { msg: 'Usuário logado com sucesso' };
                 success = true;
             }else{
                 result = { msg: 'Senha incorreta' };
@@ -55,7 +90,6 @@ export default class Usuario{
         }else{
             result = { msg: 'Usuário não encontrado' };
         }
-
 
         return { success: success, result: result };
     }
@@ -69,7 +103,7 @@ export default class Usuario{
 
         if(!usuarioVerificado){
             if(this.nome != '' && senha != ''){
-                result = await this.prisma.usuario.create({
+                result = await prisma.usuario.create({
                     data: {
                         nome: this.nome,
                         senha: senhaHash,
@@ -89,7 +123,7 @@ export default class Usuario{
         let result: { msg: string };
 
         if(await this.usuarioExiste()){
-            const deletarUsuario = await this.prisma.usuario.delete({
+            const deletarUsuario = await prisma.usuario.delete({
                 where: { nome: this.nome }
             });
             if(deletarUsuario){
@@ -110,7 +144,7 @@ export default class Usuario{
         let result: { msg: string } = { msg: 'Não foi possível atualizar o usuário' };
         
         if('nome' in campos && typeof campos.nome == 'string'){
-            const usuarioExiste = await this.prisma.usuario.findFirst({
+            const usuarioExiste = await prisma.usuario.findFirst({
                 where: { nome: campos.nome }
             });
             if(usuarioExiste){
@@ -118,7 +152,7 @@ export default class Usuario{
             }
         }
 
-        const editarUsuario = await this.prisma.usuario.update({
+        const editarUsuario = await prisma.usuario.update({
             where: { nome: this.nome },
             data: campos
         })

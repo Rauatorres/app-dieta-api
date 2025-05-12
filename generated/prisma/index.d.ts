@@ -1142,13 +1142,13 @@ export namespace Prisma {
    */
 
   export type UsuarioCountOutputType = {
-    Prato: number
-    Dia: number
+    pratos: number
+    dias: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Prato?: boolean | UsuarioCountOutputTypeCountPratoArgs
-    Dia?: boolean | UsuarioCountOutputTypeCountDiaArgs
+    pratos?: boolean | UsuarioCountOutputTypeCountPratosArgs
+    dias?: boolean | UsuarioCountOutputTypeCountDiasArgs
   }
 
   // Custom InputTypes
@@ -1165,14 +1165,14 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountPratoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuarioCountOutputTypeCountPratosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PratoWhereInput
   }
 
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuarioCountOutputTypeCountDiasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiaWhereInput
   }
 
@@ -1182,11 +1182,11 @@ export namespace Prisma {
    */
 
   export type PratoCountOutputType = {
-    PratoDia: number
+    pratoDia: number
   }
 
   export type PratoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    PratoDia?: boolean | PratoCountOutputTypeCountPratoDiaArgs
+    pratoDia?: boolean | PratoCountOutputTypeCountPratoDiaArgs
   }
 
   // Custom InputTypes
@@ -1213,11 +1213,11 @@ export namespace Prisma {
    */
 
   export type DiaCountOutputType = {
-    PratoDia: number
+    pratoDia: number
   }
 
   export type DiaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    PratoDia?: boolean | DiaCountOutputTypeCountPratoDiaArgs
+    pratoDia?: boolean | DiaCountOutputTypeCountPratoDiaArgs
   }
 
   // Custom InputTypes
@@ -1425,8 +1425,8 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     senha?: boolean
-    Prato?: boolean | Usuario$PratoArgs<ExtArgs>
-    Dia?: boolean | Usuario$DiaArgs<ExtArgs>
+    pratos?: boolean | Usuario$pratosArgs<ExtArgs>
+    dias?: boolean | Usuario$diasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -1450,8 +1450,8 @@ export namespace Prisma {
 
   export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "senha", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Prato?: boolean | Usuario$PratoArgs<ExtArgs>
-    Dia?: boolean | Usuario$DiaArgs<ExtArgs>
+    pratos?: boolean | Usuario$pratosArgs<ExtArgs>
+    dias?: boolean | Usuario$diasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1460,8 +1460,8 @@ export namespace Prisma {
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
     objects: {
-      Prato: Prisma.$PratoPayload<ExtArgs>[]
-      Dia: Prisma.$DiaPayload<ExtArgs>[]
+      pratos: Prisma.$PratoPayload<ExtArgs>[]
+      dias: Prisma.$DiaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1861,8 +1861,8 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Prato<T extends Usuario$PratoArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$PratoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Dia<T extends Usuario$DiaArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$DiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pratos<T extends Usuario$pratosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$pratosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dias<T extends Usuario$diasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$diasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2281,9 +2281,9 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.Prato
+   * Usuario.pratos
    */
-  export type Usuario$PratoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$pratosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Prato
      */
@@ -2305,9 +2305,9 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.Dia
+   * Usuario.dias
    */
-  export type Usuario$DiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$diasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Dia
      */
@@ -2557,7 +2557,7 @@ export namespace Prisma {
     ingredientes?: boolean
     preparo?: boolean
     idUsuario?: boolean
-    PratoDia?: boolean | Prato$PratoDiaArgs<ExtArgs>
+    pratoDia?: boolean | Prato$pratoDiaArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | PratoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["prato"]>
@@ -2593,7 +2593,7 @@ export namespace Prisma {
 
   export type PratoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "categoria" | "ingredientes" | "preparo" | "idUsuario", ExtArgs["result"]["prato"]>
   export type PratoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    PratoDia?: boolean | Prato$PratoDiaArgs<ExtArgs>
+    pratoDia?: boolean | Prato$pratoDiaArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | PratoCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2607,7 +2607,7 @@ export namespace Prisma {
   export type $PratoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Prato"
     objects: {
-      PratoDia: Prisma.$PratoDiaPayload<ExtArgs>[]
+      pratoDia: Prisma.$PratoDiaPayload<ExtArgs>[]
       usuario: Prisma.$UsuarioPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3011,7 +3011,7 @@ export namespace Prisma {
    */
   export interface Prisma__PratoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    PratoDia<T extends Prato$PratoDiaArgs<ExtArgs> = {}>(args?: Subset<T, Prato$PratoDiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoDiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pratoDia<T extends Prato$pratoDiaArgs<ExtArgs> = {}>(args?: Subset<T, Prato$pratoDiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoDiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3442,9 +3442,9 @@ export namespace Prisma {
   }
 
   /**
-   * Prato.PratoDia
+   * Prato.pratoDia
    */
-  export type Prato$PratoDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Prato$pratoDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PratoDia
      */
@@ -3670,7 +3670,7 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     idUsuario?: boolean
-    PratoDia?: boolean | Dia$PratoDiaArgs<ExtArgs>
+    pratoDia?: boolean | Dia$pratoDiaArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | DiaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dia"]>
@@ -3697,7 +3697,7 @@ export namespace Prisma {
 
   export type DiaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "idUsuario", ExtArgs["result"]["dia"]>
   export type DiaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    PratoDia?: boolean | Dia$PratoDiaArgs<ExtArgs>
+    pratoDia?: boolean | Dia$pratoDiaArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | DiaCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3711,7 +3711,7 @@ export namespace Prisma {
   export type $DiaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Dia"
     objects: {
-      PratoDia: Prisma.$PratoDiaPayload<ExtArgs>[]
+      pratoDia: Prisma.$PratoDiaPayload<ExtArgs>[]
       usuario: Prisma.$UsuarioPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4112,7 +4112,7 @@ export namespace Prisma {
    */
   export interface Prisma__DiaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    PratoDia<T extends Dia$PratoDiaArgs<ExtArgs> = {}>(args?: Subset<T, Dia$PratoDiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoDiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pratoDia<T extends Dia$pratoDiaArgs<ExtArgs> = {}>(args?: Subset<T, Dia$pratoDiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoDiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4540,9 +4540,9 @@ export namespace Prisma {
   }
 
   /**
-   * Dia.PratoDia
+   * Dia.pratoDia
    */
-  export type Dia$PratoDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Dia$pratoDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PratoDia
      */
@@ -5764,16 +5764,16 @@ export namespace Prisma {
     id?: IntFilter<"Usuario"> | number
     nome?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
-    Prato?: PratoListRelationFilter
-    Dia?: DiaListRelationFilter
+    pratos?: PratoListRelationFilter
+    dias?: DiaListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
     id?: SortOrder
     nome?: SortOrder
     senha?: SortOrder
-    Prato?: PratoOrderByRelationAggregateInput
-    Dia?: DiaOrderByRelationAggregateInput
+    pratos?: PratoOrderByRelationAggregateInput
+    dias?: DiaOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -5783,8 +5783,8 @@ export namespace Prisma {
     OR?: UsuarioWhereInput[]
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
     senha?: StringFilter<"Usuario"> | string
-    Prato?: PratoListRelationFilter
-    Dia?: DiaListRelationFilter
+    pratos?: PratoListRelationFilter
+    dias?: DiaListRelationFilter
   }, "id" | "nome">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -5817,7 +5817,7 @@ export namespace Prisma {
     ingredientes?: StringNullableFilter<"Prato"> | string | null
     preparo?: StringNullableFilter<"Prato"> | string | null
     idUsuario?: IntFilter<"Prato"> | number
-    PratoDia?: PratoDiaListRelationFilter
+    pratoDia?: PratoDiaListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
@@ -5828,7 +5828,7 @@ export namespace Prisma {
     ingredientes?: SortOrderInput | SortOrder
     preparo?: SortOrderInput | SortOrder
     idUsuario?: SortOrder
-    PratoDia?: PratoDiaOrderByRelationAggregateInput
+    pratoDia?: PratoDiaOrderByRelationAggregateInput
     usuario?: UsuarioOrderByWithRelationInput
   }
 
@@ -5842,7 +5842,7 @@ export namespace Prisma {
     ingredientes?: StringNullableFilter<"Prato"> | string | null
     preparo?: StringNullableFilter<"Prato"> | string | null
     idUsuario?: IntFilter<"Prato"> | number
-    PratoDia?: PratoDiaListRelationFilter
+    pratoDia?: PratoDiaListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
@@ -5879,7 +5879,7 @@ export namespace Prisma {
     id?: IntFilter<"Dia"> | number
     nome?: StringFilter<"Dia"> | string
     idUsuario?: IntFilter<"Dia"> | number
-    PratoDia?: PratoDiaListRelationFilter
+    pratoDia?: PratoDiaListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
@@ -5887,7 +5887,7 @@ export namespace Prisma {
     id?: SortOrder
     nome?: SortOrder
     idUsuario?: SortOrder
-    PratoDia?: PratoDiaOrderByRelationAggregateInput
+    pratoDia?: PratoDiaOrderByRelationAggregateInput
     usuario?: UsuarioOrderByWithRelationInput
   }
 
@@ -5898,7 +5898,7 @@ export namespace Prisma {
     NOT?: DiaWhereInput | DiaWhereInput[]
     nome?: StringFilter<"Dia"> | string
     idUsuario?: IntFilter<"Dia"> | number
-    PratoDia?: PratoDiaListRelationFilter
+    pratoDia?: PratoDiaListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
@@ -5975,31 +5975,31 @@ export namespace Prisma {
   export type UsuarioCreateInput = {
     nome: string
     senha: string
-    Prato?: PratoCreateNestedManyWithoutUsuarioInput
-    Dia?: DiaCreateNestedManyWithoutUsuarioInput
+    pratos?: PratoCreateNestedManyWithoutUsuarioInput
+    dias?: DiaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
     id?: number
     nome: string
     senha: string
-    Prato?: PratoUncheckedCreateNestedManyWithoutUsuarioInput
-    Dia?: DiaUncheckedCreateNestedManyWithoutUsuarioInput
+    pratos?: PratoUncheckedCreateNestedManyWithoutUsuarioInput
+    dias?: DiaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Prato?: PratoUpdateManyWithoutUsuarioNestedInput
-    Dia?: DiaUpdateManyWithoutUsuarioNestedInput
+    pratos?: PratoUpdateManyWithoutUsuarioNestedInput
+    dias?: DiaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Prato?: PratoUncheckedUpdateManyWithoutUsuarioNestedInput
-    Dia?: DiaUncheckedUpdateManyWithoutUsuarioNestedInput
+    pratos?: PratoUncheckedUpdateManyWithoutUsuarioNestedInput
+    dias?: DiaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -6024,8 +6024,8 @@ export namespace Prisma {
     categoria: string
     ingredientes?: string | null
     preparo?: string | null
-    PratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
-    usuario: UsuarioCreateNestedOneWithoutPratoInput
+    pratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
+    usuario: UsuarioCreateNestedOneWithoutPratosInput
   }
 
   export type PratoUncheckedCreateInput = {
@@ -6035,7 +6035,7 @@ export namespace Prisma {
     ingredientes?: string | null
     preparo?: string | null
     idUsuario: number
-    PratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
+    pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
   }
 
   export type PratoUpdateInput = {
@@ -6043,8 +6043,8 @@ export namespace Prisma {
     categoria?: StringFieldUpdateOperationsInput | string
     ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
-    PratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
-    usuario?: UsuarioUpdateOneRequiredWithoutPratoNestedInput
+    pratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutPratosNestedInput
   }
 
   export type PratoUncheckedUpdateInput = {
@@ -6054,7 +6054,7 @@ export namespace Prisma {
     ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     idUsuario?: IntFieldUpdateOperationsInput | number
-    PratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
+    pratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoCreateManyInput = {
@@ -6084,28 +6084,28 @@ export namespace Prisma {
 
   export type DiaCreateInput = {
     nome: string
-    PratoDia?: PratoDiaCreateNestedManyWithoutDiaInput
-    usuario: UsuarioCreateNestedOneWithoutDiaInput
+    pratoDia?: PratoDiaCreateNestedManyWithoutDiaInput
+    usuario: UsuarioCreateNestedOneWithoutDiasInput
   }
 
   export type DiaUncheckedCreateInput = {
     id?: number
     nome: string
     idUsuario: number
-    PratoDia?: PratoDiaUncheckedCreateNestedManyWithoutDiaInput
+    pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutDiaInput
   }
 
   export type DiaUpdateInput = {
     nome?: StringFieldUpdateOperationsInput | string
-    PratoDia?: PratoDiaUpdateManyWithoutDiaNestedInput
-    usuario?: UsuarioUpdateOneRequiredWithoutDiaNestedInput
+    pratoDia?: PratoDiaUpdateManyWithoutDiaNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutDiasNestedInput
   }
 
   export type DiaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     idUsuario?: IntFieldUpdateOperationsInput | number
-    PratoDia?: PratoDiaUncheckedUpdateManyWithoutDiaNestedInput
+    pratoDia?: PratoDiaUncheckedUpdateManyWithoutDiaNestedInput
   }
 
   export type DiaCreateManyInput = {
@@ -6525,9 +6525,9 @@ export namespace Prisma {
     connect?: PratoDiaWhereUniqueInput | PratoDiaWhereUniqueInput[]
   }
 
-  export type UsuarioCreateNestedOneWithoutPratoInput = {
-    create?: XOR<UsuarioCreateWithoutPratoInput, UsuarioUncheckedCreateWithoutPratoInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutPratoInput
+  export type UsuarioCreateNestedOneWithoutPratosInput = {
+    create?: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutPratosInput
     connect?: UsuarioWhereUniqueInput
   }
 
@@ -6556,12 +6556,12 @@ export namespace Prisma {
     deleteMany?: PratoDiaScalarWhereInput | PratoDiaScalarWhereInput[]
   }
 
-  export type UsuarioUpdateOneRequiredWithoutPratoNestedInput = {
-    create?: XOR<UsuarioCreateWithoutPratoInput, UsuarioUncheckedCreateWithoutPratoInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutPratoInput
-    upsert?: UsuarioUpsertWithoutPratoInput
+  export type UsuarioUpdateOneRequiredWithoutPratosNestedInput = {
+    create?: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutPratosInput
+    upsert?: UsuarioUpsertWithoutPratosInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutPratoInput, UsuarioUpdateWithoutPratoInput>, UsuarioUncheckedUpdateWithoutPratoInput>
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutPratosInput, UsuarioUpdateWithoutPratosInput>, UsuarioUncheckedUpdateWithoutPratosInput>
   }
 
   export type PratoDiaUncheckedUpdateManyWithoutPratoNestedInput = {
@@ -6585,9 +6585,9 @@ export namespace Prisma {
     connect?: PratoDiaWhereUniqueInput | PratoDiaWhereUniqueInput[]
   }
 
-  export type UsuarioCreateNestedOneWithoutDiaInput = {
-    create?: XOR<UsuarioCreateWithoutDiaInput, UsuarioUncheckedCreateWithoutDiaInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutDiaInput
+  export type UsuarioCreateNestedOneWithoutDiasInput = {
+    create?: XOR<UsuarioCreateWithoutDiasInput, UsuarioUncheckedCreateWithoutDiasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDiasInput
     connect?: UsuarioWhereUniqueInput
   }
 
@@ -6612,12 +6612,12 @@ export namespace Prisma {
     deleteMany?: PratoDiaScalarWhereInput | PratoDiaScalarWhereInput[]
   }
 
-  export type UsuarioUpdateOneRequiredWithoutDiaNestedInput = {
-    create?: XOR<UsuarioCreateWithoutDiaInput, UsuarioUncheckedCreateWithoutDiaInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutDiaInput
-    upsert?: UsuarioUpsertWithoutDiaInput
+  export type UsuarioUpdateOneRequiredWithoutDiasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutDiasInput, UsuarioUncheckedCreateWithoutDiasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDiasInput
+    upsert?: UsuarioUpsertWithoutDiasInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutDiaInput, UsuarioUpdateWithoutDiaInput>, UsuarioUncheckedUpdateWithoutDiaInput>
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutDiasInput, UsuarioUpdateWithoutDiasInput>, UsuarioUncheckedUpdateWithoutDiasInput>
   }
 
   export type PratoDiaUncheckedUpdateManyWithoutDiaNestedInput = {
@@ -6778,7 +6778,7 @@ export namespace Prisma {
     categoria: string
     ingredientes?: string | null
     preparo?: string | null
-    PratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
+    pratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
   }
 
   export type PratoUncheckedCreateWithoutUsuarioInput = {
@@ -6787,7 +6787,7 @@ export namespace Prisma {
     categoria: string
     ingredientes?: string | null
     preparo?: string | null
-    PratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
+    pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
   }
 
   export type PratoCreateOrConnectWithoutUsuarioInput = {
@@ -6801,13 +6801,13 @@ export namespace Prisma {
 
   export type DiaCreateWithoutUsuarioInput = {
     nome: string
-    PratoDia?: PratoDiaCreateNestedManyWithoutDiaInput
+    pratoDia?: PratoDiaCreateNestedManyWithoutDiaInput
   }
 
   export type DiaUncheckedCreateWithoutUsuarioInput = {
     id?: number
     nome: string
-    PratoDia?: PratoDiaUncheckedCreateNestedManyWithoutDiaInput
+    pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutDiaInput
   }
 
   export type DiaCreateOrConnectWithoutUsuarioInput = {
@@ -6890,22 +6890,22 @@ export namespace Prisma {
     data: PratoDiaCreateManyPratoInput | PratoDiaCreateManyPratoInput[]
   }
 
-  export type UsuarioCreateWithoutPratoInput = {
+  export type UsuarioCreateWithoutPratosInput = {
     nome: string
     senha: string
-    Dia?: DiaCreateNestedManyWithoutUsuarioInput
+    dias?: DiaCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioUncheckedCreateWithoutPratoInput = {
+  export type UsuarioUncheckedCreateWithoutPratosInput = {
     id?: number
     nome: string
     senha: string
-    Dia?: DiaUncheckedCreateNestedManyWithoutUsuarioInput
+    dias?: DiaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioCreateOrConnectWithoutPratoInput = {
+  export type UsuarioCreateOrConnectWithoutPratosInput = {
     where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutPratoInput, UsuarioUncheckedCreateWithoutPratoInput>
+    create: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
   }
 
   export type PratoDiaUpsertWithWhereUniqueWithoutPratoInput = {
@@ -6933,28 +6933,28 @@ export namespace Prisma {
     idPrato?: IntFilter<"PratoDia"> | number
   }
 
-  export type UsuarioUpsertWithoutPratoInput = {
-    update: XOR<UsuarioUpdateWithoutPratoInput, UsuarioUncheckedUpdateWithoutPratoInput>
-    create: XOR<UsuarioCreateWithoutPratoInput, UsuarioUncheckedCreateWithoutPratoInput>
+  export type UsuarioUpsertWithoutPratosInput = {
+    update: XOR<UsuarioUpdateWithoutPratosInput, UsuarioUncheckedUpdateWithoutPratosInput>
+    create: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
     where?: UsuarioWhereInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutPratoInput = {
+  export type UsuarioUpdateToOneWithWhereWithoutPratosInput = {
     where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutPratoInput, UsuarioUncheckedUpdateWithoutPratoInput>
+    data: XOR<UsuarioUpdateWithoutPratosInput, UsuarioUncheckedUpdateWithoutPratosInput>
   }
 
-  export type UsuarioUpdateWithoutPratoInput = {
+  export type UsuarioUpdateWithoutPratosInput = {
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Dia?: DiaUpdateManyWithoutUsuarioNestedInput
+    dias?: DiaUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutPratoInput = {
+  export type UsuarioUncheckedUpdateWithoutPratosInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Dia?: DiaUncheckedUpdateManyWithoutUsuarioNestedInput
+    dias?: DiaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type PratoDiaCreateWithoutDiaInput = {
@@ -6975,22 +6975,22 @@ export namespace Prisma {
     data: PratoDiaCreateManyDiaInput | PratoDiaCreateManyDiaInput[]
   }
 
-  export type UsuarioCreateWithoutDiaInput = {
+  export type UsuarioCreateWithoutDiasInput = {
     nome: string
     senha: string
-    Prato?: PratoCreateNestedManyWithoutUsuarioInput
+    pratos?: PratoCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioUncheckedCreateWithoutDiaInput = {
+  export type UsuarioUncheckedCreateWithoutDiasInput = {
     id?: number
     nome: string
     senha: string
-    Prato?: PratoUncheckedCreateNestedManyWithoutUsuarioInput
+    pratos?: PratoUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioCreateOrConnectWithoutDiaInput = {
+  export type UsuarioCreateOrConnectWithoutDiasInput = {
     where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutDiaInput, UsuarioUncheckedCreateWithoutDiaInput>
+    create: XOR<UsuarioCreateWithoutDiasInput, UsuarioUncheckedCreateWithoutDiasInput>
   }
 
   export type PratoDiaUpsertWithWhereUniqueWithoutDiaInput = {
@@ -7009,33 +7009,33 @@ export namespace Prisma {
     data: XOR<PratoDiaUpdateManyMutationInput, PratoDiaUncheckedUpdateManyWithoutDiaInput>
   }
 
-  export type UsuarioUpsertWithoutDiaInput = {
-    update: XOR<UsuarioUpdateWithoutDiaInput, UsuarioUncheckedUpdateWithoutDiaInput>
-    create: XOR<UsuarioCreateWithoutDiaInput, UsuarioUncheckedCreateWithoutDiaInput>
+  export type UsuarioUpsertWithoutDiasInput = {
+    update: XOR<UsuarioUpdateWithoutDiasInput, UsuarioUncheckedUpdateWithoutDiasInput>
+    create: XOR<UsuarioCreateWithoutDiasInput, UsuarioUncheckedCreateWithoutDiasInput>
     where?: UsuarioWhereInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutDiaInput = {
+  export type UsuarioUpdateToOneWithWhereWithoutDiasInput = {
     where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutDiaInput, UsuarioUncheckedUpdateWithoutDiaInput>
+    data: XOR<UsuarioUpdateWithoutDiasInput, UsuarioUncheckedUpdateWithoutDiasInput>
   }
 
-  export type UsuarioUpdateWithoutDiaInput = {
+  export type UsuarioUpdateWithoutDiasInput = {
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Prato?: PratoUpdateManyWithoutUsuarioNestedInput
+    pratos?: PratoUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutDiaInput = {
+  export type UsuarioUncheckedUpdateWithoutDiasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
-    Prato?: PratoUncheckedUpdateManyWithoutUsuarioNestedInput
+    pratos?: PratoUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type DiaCreateWithoutPratoDiaInput = {
     nome: string
-    usuario: UsuarioCreateNestedOneWithoutDiaInput
+    usuario: UsuarioCreateNestedOneWithoutDiasInput
   }
 
   export type DiaUncheckedCreateWithoutPratoDiaInput = {
@@ -7054,7 +7054,7 @@ export namespace Prisma {
     categoria: string
     ingredientes?: string | null
     preparo?: string | null
-    usuario: UsuarioCreateNestedOneWithoutPratoInput
+    usuario: UsuarioCreateNestedOneWithoutPratosInput
   }
 
   export type PratoUncheckedCreateWithoutPratoDiaInput = {
@@ -7084,7 +7084,7 @@ export namespace Prisma {
 
   export type DiaUpdateWithoutPratoDiaInput = {
     nome?: StringFieldUpdateOperationsInput | string
-    usuario?: UsuarioUpdateOneRequiredWithoutDiaNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutDiasNestedInput
   }
 
   export type DiaUncheckedUpdateWithoutPratoDiaInput = {
@@ -7109,7 +7109,7 @@ export namespace Prisma {
     categoria?: StringFieldUpdateOperationsInput | string
     ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
-    usuario?: UsuarioUpdateOneRequiredWithoutPratoNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutPratosNestedInput
   }
 
   export type PratoUncheckedUpdateWithoutPratoDiaInput = {
@@ -7139,7 +7139,7 @@ export namespace Prisma {
     categoria?: StringFieldUpdateOperationsInput | string
     ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
-    PratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
+    pratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoUncheckedUpdateWithoutUsuarioInput = {
@@ -7148,7 +7148,7 @@ export namespace Prisma {
     categoria?: StringFieldUpdateOperationsInput | string
     ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
-    PratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
+    pratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoUncheckedUpdateManyWithoutUsuarioInput = {
@@ -7161,13 +7161,13 @@ export namespace Prisma {
 
   export type DiaUpdateWithoutUsuarioInput = {
     nome?: StringFieldUpdateOperationsInput | string
-    PratoDia?: PratoDiaUpdateManyWithoutDiaNestedInput
+    pratoDia?: PratoDiaUpdateManyWithoutDiaNestedInput
   }
 
   export type DiaUncheckedUpdateWithoutUsuarioInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
-    PratoDia?: PratoDiaUncheckedUpdateManyWithoutDiaNestedInput
+    pratoDia?: PratoDiaUncheckedUpdateManyWithoutDiaNestedInput
   }
 
   export type DiaUncheckedUpdateManyWithoutUsuarioInput = {

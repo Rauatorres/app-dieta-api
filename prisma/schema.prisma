@@ -16,8 +16,8 @@ model Usuario{
   nome String @unique
   senha String
 
-  Prato Prato[]
-  Dia Dia[]
+  pratos Prato[]
+  dias Dia[]
 }
 
 model Prato{
@@ -27,7 +27,7 @@ model Prato{
   ingredientes String?
   preparo String?
 
-  PratoDia PratoDia[]
+  pratoDia PratoDia[]
 
   idUsuario Int
   usuario Usuario @relation(fields: [idUsuario], references: [id])
@@ -37,7 +37,7 @@ model Dia{
   id Int @id @default(autoincrement())
   nome String
 
-  PratoDia PratoDia[]
+  pratoDia PratoDia[]
 
   idUsuario Int
   usuario Usuario @relation(fields: [idUsuario], references: [id])

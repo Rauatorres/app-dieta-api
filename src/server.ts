@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import routes from "./routes";
 import fastifyFormbody from "@fastify/formbody";
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: false });
 
 fastify.register(fastifyFormbody);
 fastify.register(routes);
