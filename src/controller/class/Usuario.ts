@@ -1,7 +1,7 @@
 import { createHash } from "crypto";
 import Dia from "./Dia";
 import Prato from "./Prato";
-import type { UsuarioQueryResult, QueryReturn, ErrorMsgObj, PratoQueryResult, DiaQueryResult } from "../../types";
+import type { PratoQueryResult, DiaQueryResult } from "../../types";
 import prisma from "./prismaConnection";
 
 export default class Usuario{
@@ -74,10 +74,10 @@ export default class Usuario{
         }
     }
 
-    async login(senha: string): Promise<QueryReturn>{
+    async login(senha: string){
         const senhaHash = createHash('md5').update(senha).digest('hex');
-        let result: ErrorMsgObj | UsuarioQueryResult;
-        let success: boolean = false;
+        let result: object;
+        // let success: boolean = false;
 
         if(await this.usuarioExiste()){
             const usuario = await prisma.usuario.findUnique(
@@ -89,73 +89,78 @@ export default class Usuario{
                 }
             );
             if(usuario){
-                result = { msg: 'Usuário logado com sucesso' };
-                success = true;
+                result = usuario;
             }else{
-                result = { msg: 'Senha incorreta' };
+                result = { error: 'Senha incorreta' };
             }
         }else{
-            result = { msg: 'Usuário não encontrado' };
+            result = { error: 'Usuário não encontrado' };
         }
 
-        return { success: success, result: result };
+        // return { success: success, result: result };
+        return result;
     }
 
-    async cadastrar(senha: string): Promise<QueryReturn>{
+    async cadastrar(senha: string){
         const senhaHash = createHash('md5').update(senha).digest('hex');
-        let success: boolean = false;
-        let result: ErrorMsgObj | UsuarioQueryResult = { msg: 'O usuário já existe' };
+        // let success: boolean = false;
+        let result: object = { error: 'O usuário já existe' };
 
         const usuarioVerificado = await this.usuarioExiste();
 
         if(!usuarioVerificado){
             if(this.nome != '' && senha != ''){
-                result = await prisma.usuario.create({
+                const usuarioCadastrado = await prisma.usuario.create({
                     data: {
                         nome: this.nome,
                         senha: senhaHash,
                     }
                 });
-                success = true;
+                if (usuarioCadastrado){
+                    result = usuarioCadastrado;
+                }else{
+                    result = { error: 'O usuário não pode ser cadastrado' };
+                }
+                // success = true;
             }else{
-                result = { msg: 'O nome de usuário e a senha não podem ser vazios' };
+                result = { error: 'O nome de usuário e a senha não podem ser vazios' };
             }
         }
 
-        return { success: success, result: result};
+        return result;
     }
 
-    async deletar(): Promise<QueryReturn>{
-        let success: boolean = false;
-        let result: { msg: string };
+    async deletar(){
+        // let success: boolean = false;
+        let result: object;
 
         if(await this.usuarioExiste()){
             const deletarUsuario = await prisma.usuario.delete({
                 where: { nome: this.nome }
             });
             if(deletarUsuario){
-                result = { msg: 'Usuário excluido com sucesso' };
-                success = true;
+                result = deletarUsuario;
             }else{
-                result = { msg: 'O usuário não pode ser excluído' };
+                result = { error: 'O usuário não pode ser excluído' };
             }
         }else{
-            result = { msg: 'Usuário não encontrado' };
+            result = { error: 'Usuário não encontrado' };
         }
 
-        return { success: success, result: result };
+        // return { success: success, result: result };
+        return result;
     }
 
-    async editar(campos: object): Promise<QueryReturn>{
-        let success: boolean = false;
-        let result: { msg: string } = { msg: 'Não foi possível atualizar o usuário' };
+    async editar(campos: object){
+        // let success: boolean = false;
+        let result: object = { error: 'Não foi possível atualizar o usuário' };
         
         if('nome' in campos && typeof campos.nome == 'string'){
             const usuarioExiste = await prisma.usuario.findFirst({
                 where: { nome: campos.nome }
             });
             if(usuarioExiste){
-                result = { msg: `Já existe um usuário de nome '${campos.nome}'` };
+                result = { error: `Já existe um usuário de nome '${campos.nome}'` };
             }
         }
 
@@ -165,10 +170,12 @@ export default class Usuario{
         })
 
         if(editarUsuario){
-            success = true;
-            result = { msg: 'Usuário atualizado com sucesso' };
+            // success = true;
+            // result = { msg: 'Usuário atualizado com sucesso' };
+            result = editarUsuario;
         }
 
-        return { success: success, result: result };
+        // return { success: success, result: result };
+        return result;
     }
 }

@@ -96,7 +96,7 @@ export default class Dia{
             });
             return novoPratoDia;
         }else{
-            return { erro: 'Dia inválido' };
+            return { error: 'Dia inválido' };
         }
 
     }
@@ -107,7 +107,7 @@ export default class Dia{
                 id: idPratoDia
             }
         });
-        
+
         return pratoDiaRemovido;
     }
 

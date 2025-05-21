@@ -53,12 +53,12 @@ export default class Prato{
                 data: campos
             });
             if (prato){
-                return { success: true, result: prato};
+                return prato;
             }else{
-                return { success: false, result: { msg: 'Campo inválido' }} 
+                return { error: 'Campo inválido' }; 
             }
         }else{
-            return { success: false, result: { msg: 'Prato não definido' }};
+            return { error: 'Prato não definido' };
         }
         
     }

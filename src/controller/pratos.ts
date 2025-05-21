@@ -20,13 +20,13 @@ const excluirPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
                     break;
                 }
             }
-            return { success: true, result: usuario };
+            return usuario;
         }
 
-        return { success: false, msg: 'Algum campo possui valor inválido' }
+        return { error: 'Algum campo possui valor inválido' }
     }
 
-    return { success: false, msg: 'Está faltando algum campo' };
+    return { error: 'Está faltando algum campo' };
 };
 
 const addPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
@@ -63,7 +63,7 @@ const editarPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
         return editarPrato;
     }
 
-    return { success: false, result: { msg: 'Campo inválido!' } }
+    return { error: 'Campo inválido!' }
 }
 
 export { addPrato, excluirPrato, editarPrato };
