@@ -12,7 +12,7 @@ const cadastrar = async (request: FastifyRequest, _reply: FastifyReply): Promise
         return { success: false,  result: { msg: 'Senha não reconhecida!' } };
     }
 
-    const usuario = new Usuario(reqBody.nome);
+    const usuario = await Usuario.create(reqBody.nome);
 
     return await usuario.cadastrar(reqBody.senha);
 }
@@ -20,13 +20,12 @@ const cadastrar = async (request: FastifyRequest, _reply: FastifyReply): Promise
 const login = async (request: FastifyRequest, _reply: FastifyReply): Promise<QueryReturn> => {
     const reqBody = request.body as { nome: string, senha: string };
 
-    const usuario = new Usuario(reqBody.nome);
+    const usuario = await Usuario.create(reqBody.nome);
     const login = await usuario.login(reqBody.senha)
 
     let result: QueryReturn;
 
     if(login.success){
-        usuario.init();
         result = { ...login, usuario: usuario };
     }else{
         result = login;
@@ -38,7 +37,7 @@ const login = async (request: FastifyRequest, _reply: FastifyReply): Promise<Que
 const excluir = async (request: FastifyRequest, _reply: FastifyReply): Promise<QueryReturn> => {
     const reqBody = request.body as { nome: string };
 
-    const usuario = new Usuario(reqBody.nome);
+    const usuario = await Usuario.create(reqBody.nome);
 
     return await usuario.deletar();
 }
@@ -46,7 +45,7 @@ const excluir = async (request: FastifyRequest, _reply: FastifyReply): Promise<Q
 const editar = async (request: FastifyRequest, _reply: FastifyReply): Promise<QueryReturn> => {
     const reqBody = request.body as { nome: string, campos: object };
 
-    const usuario = new Usuario(reqBody.nome);
+    const usuario = await Usuario.create(reqBody.nome);
 
     return await usuario.editar(reqBody.campos);
 }

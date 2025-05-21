@@ -8,9 +8,15 @@ export default class Usuario{
     pratos: Prato[];
     dias: Dia[];
 
-    constructor(public nome: string){
+    private constructor(public nome: string){
         this.pratos = [];
         this.dias = [];
+    }
+
+    static async create(nome: string){
+        const usuario = new Usuario(nome);
+        await usuario.init();
+        return usuario;
     }
 
     private async usuarioExiste(){
@@ -27,7 +33,7 @@ export default class Usuario{
         }
     }
 
-    async init(): Promise<void>{
+    private async init(): Promise<void>{
         if(await this.usuarioExiste()){
             const usuario = await prisma.usuario.findUnique(
                 {
@@ -54,10 +60,11 @@ export default class Usuario{
                     this.pratos.push(prato);
                 });
 
-                dias.forEach(diaObj => {
-                    const { nome } = diaObj;
+                dias.forEach(async diaObj => {
+                    const { id, nome } = diaObj;
     
-                    const dia = new Dia(nome);
+                    const dia = await Dia.create(nome);
+                    dia.id = id;
     
                     this.dias.push(dia);
                 });

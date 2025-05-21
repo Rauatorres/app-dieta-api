@@ -10,8 +10,7 @@ const excluirPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
     if('usuario' in reqBody || 'id' in reqBody){
 
         if(typeof reqBody.usuario == 'string' && typeof reqBody.id == 'number'){
-            const usuario = new Usuario(reqBody.usuario);
-            await usuario.init();
+            const usuario = await Usuario.create(reqBody.usuario);
 
             const pratos = usuario.pratos
             for(let i = 0; i < pratos.length; i++){
@@ -42,7 +41,7 @@ const addPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
     const { nome, categoria, ingredientes, preparo, usuario } = reqBody;
     
     const prato = new Prato(nome, categoria, ingredientes, preparo);
-    const usuarioLogado = new Usuario(usuario);
+    const usuarioLogado = await Usuario.create(usuario);
 
     await prato.criar(usuarioLogado);
 
@@ -55,8 +54,7 @@ const editarPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
     if ('usuario' in reqBody && 'prato' in reqBody && 'campos' in reqBody
         && typeof reqBody.usuario == 'string' && typeof reqBody.prato == 'number' && typeof reqBody.campos == 'object'
     ){
-        const usuario = new Usuario(reqBody.usuario);
-        await usuario.init();
+        const usuario = await Usuario.create(reqBody.usuario);
         
         const prato = usuario.pratos[reqBody.prato];
 
