@@ -1,9 +1,15 @@
 import Fastify from "fastify";
 import routes from "./routes";
 import fastifyFormbody from "@fastify/formbody";
+import fastifyCors from "@fastify/cors";
 
 const fastify = Fastify({ logger: false });
 
+fastify.register(fastifyCors, {
+    origin: [
+        'http://localhost:5173'
+    ]
+});
 fastify.register(fastifyFormbody);
 fastify.register(routes);
 

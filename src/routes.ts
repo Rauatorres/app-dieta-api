@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { cadastrar, editar, excluir, login } from "./controller/usuario";
+import { cadastrar, editar, excluir, login, usuario } from "./controller/usuario";
 // import Usuario from "./controller/class/Usuario";
 import { addPrato, editarPrato, excluirPrato } from "./controller/pratos";
 import { addDia, adicionarPratoAoDia, editarDia, excluirDia, removerPratoDoDia } from "./controller/dias";
@@ -42,6 +42,10 @@ export default (fastify: FastifyInstance) => {
 
     fastify.post('/login', async (request: FastifyRequest, reply: FastifyReply) => {
         return await login(request, reply);
+    });
+    
+    fastify.post('/usuario/:nome', async (request: FastifyRequest, reply: FastifyReply) => {
+        return await usuario(request, reply);
     });
 
     fastify.delete('/excluir', async (request: FastifyRequest, reply: FastifyReply) => {

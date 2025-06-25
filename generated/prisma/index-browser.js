@@ -127,9 +127,14 @@ exports.Prisma.PratoScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
   categoria: 'categoria',
-  ingredientes: 'ingredientes',
   preparo: 'preparo',
   idUsuario: 'idUsuario'
+};
+
+exports.Prisma.IngredienteScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  idPrato: 'idPrato'
 };
 
 exports.Prisma.DiaScalarFieldEnum = {
@@ -158,6 +163,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',
   Prato: 'Prato',
+  Ingrediente: 'Ingrediente',
   Dia: 'Dia',
   PratoDia: 'PratoDia'
 };

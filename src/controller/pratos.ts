@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import Usuario from "./class/Usuario";
 import Prato from "./class/Prato";
+import { Ingrediente } from "../../generated/prisma";
 
 const excluirPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
     const reqBody = request.body as { usuario: string, id: number };
@@ -34,7 +35,7 @@ const addPrato = async (request: FastifyRequest, _reply: FastifyReply) => {
         usuario: string,
         nome: string, 
         categoria: string, 
-        ingredientes?: string, 
+        ingredientes: Ingrediente[], 
         preparo?: string
     };
 

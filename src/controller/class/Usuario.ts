@@ -3,6 +3,7 @@ import Dia from "./Dia";
 import Prato from "./Prato";
 import type { PratoQueryResult, DiaQueryResult } from "../../types";
 import prisma from "./prismaConnection";
+import { Ingrediente } from "../../../generated/prisma";
 
 export default class Usuario{
     pratos: Prato[];
@@ -41,7 +42,9 @@ export default class Usuario{
                         nome: this.nome
                     },
                     include: {
-                        pratos: true,
+                        pratos: {
+                            include: { ingredientes: true }
+                        },
                         dias: true
                     }
                 }
@@ -53,8 +56,16 @@ export default class Usuario{
                 
                 pratos.forEach(pratoObj => {
                     const { id, nome, categoria, ingredientes, preparo } = pratoObj;
+
+                    let ingredientesVerif: Ingrediente[]; 
+
+                    if (ingredientes == null){
+                        ingredientesVerif = [];
+                    }else{
+                        ingredientesVerif = ingredientes;
+                    }
     
-                    const prato = new Prato(nome, categoria, ingredientes || undefined, preparo || undefined);
+                    const prato = new Prato(nome, categoria, ingredientesVerif, preparo || undefined);
                     prato.id = id;
     
                     this.pratos.push(prato);
@@ -128,6 +139,10 @@ export default class Usuario{
         }
 
         return result;
+    }
+
+    getUsuario(){
+        return { nome: this.nome, pratos: this.pratos, dias: this.dias };
     }
 
     async deletar(){

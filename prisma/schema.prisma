@@ -24,13 +24,21 @@ model Prato{
   id Int @id @default(autoincrement())
   nome String
   categoria String
-  ingredientes String?
   preparo String?
 
   pratoDia PratoDia[]
+  ingredientes Ingrediente[]
 
   idUsuario Int
   usuario Usuario @relation(fields: [idUsuario], references: [id])
+}
+
+model Ingrediente{
+  id Int @id @default(autoincrement())
+  nome String
+
+  idPrato Int
+  prato Prato @relation(fields: [idPrato], references: [id])
 }
 
 model Dia{

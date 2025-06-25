@@ -24,6 +24,11 @@ export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
  */
 export type Prato = $Result.DefaultSelection<Prisma.$PratoPayload>
 /**
+ * Model Ingrediente
+ * 
+ */
+export type Ingrediente = $Result.DefaultSelection<Prisma.$IngredientePayload>
+/**
  * Model Dia
  * 
  */
@@ -178,6 +183,16 @@ export class PrismaClient<
     * ```
     */
   get prato(): Prisma.PratoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ingrediente`: Exposes CRUD operations for the **Ingrediente** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ingredientes
+    * const ingredientes = await prisma.ingrediente.findMany()
+    * ```
+    */
+  get ingrediente(): Prisma.IngredienteDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.dia`: Exposes CRUD operations for the **Dia** model.
@@ -640,6 +655,7 @@ export namespace Prisma {
   export const ModelName: {
     Usuario: 'Usuario',
     Prato: 'Prato',
+    Ingrediente: 'Ingrediente',
     Dia: 'Dia',
     PratoDia: 'PratoDia'
   };
@@ -660,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "prato" | "dia" | "pratoDia"
+      modelProps: "usuario" | "prato" | "ingrediente" | "dia" | "pratoDia"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -809,6 +825,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PratoCountArgs<ExtArgs>
             result: $Utils.Optional<PratoCountAggregateOutputType> | number
+          }
+        }
+      }
+      Ingrediente: {
+        payload: Prisma.$IngredientePayload<ExtArgs>
+        fields: Prisma.IngredienteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IngredienteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IngredienteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          findFirst: {
+            args: Prisma.IngredienteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IngredienteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          findMany: {
+            args: Prisma.IngredienteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>[]
+          }
+          create: {
+            args: Prisma.IngredienteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          createMany: {
+            args: Prisma.IngredienteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IngredienteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>[]
+          }
+          delete: {
+            args: Prisma.IngredienteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          update: {
+            args: Prisma.IngredienteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          deleteMany: {
+            args: Prisma.IngredienteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IngredienteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IngredienteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>[]
+          }
+          upsert: {
+            args: Prisma.IngredienteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IngredientePayload>
+          }
+          aggregate: {
+            args: Prisma.IngredienteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIngrediente>
+          }
+          groupBy: {
+            args: Prisma.IngredienteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IngredienteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IngredienteCountArgs<ExtArgs>
+            result: $Utils.Optional<IngredienteCountAggregateOutputType> | number
           }
         }
       }
@@ -1046,6 +1136,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     usuario?: UsuarioOmit
     prato?: PratoOmit
+    ingrediente?: IngredienteOmit
     dia?: DiaOmit
     pratoDia?: PratoDiaOmit
   }
@@ -1183,10 +1274,12 @@ export namespace Prisma {
 
   export type PratoCountOutputType = {
     pratoDia: number
+    ingredientes: number
   }
 
   export type PratoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pratoDia?: boolean | PratoCountOutputTypeCountPratoDiaArgs
+    ingredientes?: boolean | PratoCountOutputTypeCountIngredientesArgs
   }
 
   // Custom InputTypes
@@ -1205,6 +1298,13 @@ export namespace Prisma {
    */
   export type PratoCountOutputTypeCountPratoDiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PratoDiaWhereInput
+  }
+
+  /**
+   * PratoCountOutputType without action
+   */
+  export type PratoCountOutputTypeCountIngredientesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IngredienteWhereInput
   }
 
 
@@ -2373,7 +2473,6 @@ export namespace Prisma {
     id: number | null
     nome: string | null
     categoria: string | null
-    ingredientes: string | null
     preparo: string | null
     idUsuario: number | null
   }
@@ -2382,7 +2481,6 @@ export namespace Prisma {
     id: number | null
     nome: string | null
     categoria: string | null
-    ingredientes: string | null
     preparo: string | null
     idUsuario: number | null
   }
@@ -2391,7 +2489,6 @@ export namespace Prisma {
     id: number
     nome: number
     categoria: number
-    ingredientes: number
     preparo: number
     idUsuario: number
     _all: number
@@ -2412,7 +2509,6 @@ export namespace Prisma {
     id?: true
     nome?: true
     categoria?: true
-    ingredientes?: true
     preparo?: true
     idUsuario?: true
   }
@@ -2421,7 +2517,6 @@ export namespace Prisma {
     id?: true
     nome?: true
     categoria?: true
-    ingredientes?: true
     preparo?: true
     idUsuario?: true
   }
@@ -2430,7 +2525,6 @@ export namespace Prisma {
     id?: true
     nome?: true
     categoria?: true
-    ingredientes?: true
     preparo?: true
     idUsuario?: true
     _all?: true
@@ -2526,7 +2620,6 @@ export namespace Prisma {
     id: number
     nome: string
     categoria: string
-    ingredientes: string | null
     preparo: string | null
     idUsuario: number
     _count: PratoCountAggregateOutputType | null
@@ -2554,10 +2647,10 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     categoria?: boolean
-    ingredientes?: boolean
     preparo?: boolean
     idUsuario?: boolean
     pratoDia?: boolean | Prato$pratoDiaArgs<ExtArgs>
+    ingredientes?: boolean | Prato$ingredientesArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | PratoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["prato"]>
@@ -2566,7 +2659,6 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     categoria?: boolean
-    ingredientes?: boolean
     preparo?: boolean
     idUsuario?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
@@ -2576,7 +2668,6 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     categoria?: boolean
-    ingredientes?: boolean
     preparo?: boolean
     idUsuario?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
@@ -2586,14 +2677,14 @@ export namespace Prisma {
     id?: boolean
     nome?: boolean
     categoria?: boolean
-    ingredientes?: boolean
     preparo?: boolean
     idUsuario?: boolean
   }
 
-  export type PratoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "categoria" | "ingredientes" | "preparo" | "idUsuario", ExtArgs["result"]["prato"]>
+  export type PratoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "categoria" | "preparo" | "idUsuario", ExtArgs["result"]["prato"]>
   export type PratoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pratoDia?: boolean | Prato$pratoDiaArgs<ExtArgs>
+    ingredientes?: boolean | Prato$ingredientesArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     _count?: boolean | PratoCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2608,13 +2699,13 @@ export namespace Prisma {
     name: "Prato"
     objects: {
       pratoDia: Prisma.$PratoDiaPayload<ExtArgs>[]
+      ingredientes: Prisma.$IngredientePayload<ExtArgs>[]
       usuario: Prisma.$UsuarioPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nome: string
       categoria: string
-      ingredientes: string | null
       preparo: string | null
       idUsuario: number
     }, ExtArgs["result"]["prato"]>
@@ -3012,6 +3103,7 @@ export namespace Prisma {
   export interface Prisma__PratoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     pratoDia<T extends Prato$pratoDiaArgs<ExtArgs> = {}>(args?: Subset<T, Prato$pratoDiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PratoDiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ingredientes<T extends Prato$ingredientesArgs<ExtArgs> = {}>(args?: Subset<T, Prato$ingredientesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3045,7 +3137,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Prato", 'Int'>
     readonly nome: FieldRef<"Prato", 'String'>
     readonly categoria: FieldRef<"Prato", 'String'>
-    readonly ingredientes: FieldRef<"Prato", 'String'>
     readonly preparo: FieldRef<"Prato", 'String'>
     readonly idUsuario: FieldRef<"Prato", 'Int'>
   }
@@ -3466,6 +3557,30 @@ export namespace Prisma {
   }
 
   /**
+   * Prato.ingredientes
+   */
+  export type Prato$ingredientesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    where?: IngredienteWhereInput
+    orderBy?: IngredienteOrderByWithRelationInput | IngredienteOrderByWithRelationInput[]
+    cursor?: IngredienteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IngredienteScalarFieldEnum | IngredienteScalarFieldEnum[]
+  }
+
+  /**
    * Prato without action
    */
   export type PratoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3481,6 +3596,1074 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PratoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Ingrediente
+   */
+
+  export type AggregateIngrediente = {
+    _count: IngredienteCountAggregateOutputType | null
+    _avg: IngredienteAvgAggregateOutputType | null
+    _sum: IngredienteSumAggregateOutputType | null
+    _min: IngredienteMinAggregateOutputType | null
+    _max: IngredienteMaxAggregateOutputType | null
+  }
+
+  export type IngredienteAvgAggregateOutputType = {
+    id: number | null
+    idPrato: number | null
+  }
+
+  export type IngredienteSumAggregateOutputType = {
+    id: number | null
+    idPrato: number | null
+  }
+
+  export type IngredienteMinAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    idPrato: number | null
+  }
+
+  export type IngredienteMaxAggregateOutputType = {
+    id: number | null
+    nome: string | null
+    idPrato: number | null
+  }
+
+  export type IngredienteCountAggregateOutputType = {
+    id: number
+    nome: number
+    idPrato: number
+    _all: number
+  }
+
+
+  export type IngredienteAvgAggregateInputType = {
+    id?: true
+    idPrato?: true
+  }
+
+  export type IngredienteSumAggregateInputType = {
+    id?: true
+    idPrato?: true
+  }
+
+  export type IngredienteMinAggregateInputType = {
+    id?: true
+    nome?: true
+    idPrato?: true
+  }
+
+  export type IngredienteMaxAggregateInputType = {
+    id?: true
+    nome?: true
+    idPrato?: true
+  }
+
+  export type IngredienteCountAggregateInputType = {
+    id?: true
+    nome?: true
+    idPrato?: true
+    _all?: true
+  }
+
+  export type IngredienteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ingrediente to aggregate.
+     */
+    where?: IngredienteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ingredientes to fetch.
+     */
+    orderBy?: IngredienteOrderByWithRelationInput | IngredienteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IngredienteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ingredientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ingredientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ingredientes
+    **/
+    _count?: true | IngredienteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IngredienteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IngredienteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IngredienteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IngredienteMaxAggregateInputType
+  }
+
+  export type GetIngredienteAggregateType<T extends IngredienteAggregateArgs> = {
+        [P in keyof T & keyof AggregateIngrediente]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIngrediente[P]>
+      : GetScalarType<T[P], AggregateIngrediente[P]>
+  }
+
+
+
+
+  export type IngredienteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IngredienteWhereInput
+    orderBy?: IngredienteOrderByWithAggregationInput | IngredienteOrderByWithAggregationInput[]
+    by: IngredienteScalarFieldEnum[] | IngredienteScalarFieldEnum
+    having?: IngredienteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IngredienteCountAggregateInputType | true
+    _avg?: IngredienteAvgAggregateInputType
+    _sum?: IngredienteSumAggregateInputType
+    _min?: IngredienteMinAggregateInputType
+    _max?: IngredienteMaxAggregateInputType
+  }
+
+  export type IngredienteGroupByOutputType = {
+    id: number
+    nome: string
+    idPrato: number
+    _count: IngredienteCountAggregateOutputType | null
+    _avg: IngredienteAvgAggregateOutputType | null
+    _sum: IngredienteSumAggregateOutputType | null
+    _min: IngredienteMinAggregateOutputType | null
+    _max: IngredienteMaxAggregateOutputType | null
+  }
+
+  type GetIngredienteGroupByPayload<T extends IngredienteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IngredienteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IngredienteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IngredienteGroupByOutputType[P]>
+            : GetScalarType<T[P], IngredienteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IngredienteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    idPrato?: boolean
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ingrediente"]>
+
+  export type IngredienteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    idPrato?: boolean
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ingrediente"]>
+
+  export type IngredienteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nome?: boolean
+    idPrato?: boolean
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ingrediente"]>
+
+  export type IngredienteSelectScalar = {
+    id?: boolean
+    nome?: boolean
+    idPrato?: boolean
+  }
+
+  export type IngredienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "idPrato", ExtArgs["result"]["ingrediente"]>
+  export type IngredienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }
+  export type IngredienteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }
+  export type IngredienteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    prato?: boolean | PratoDefaultArgs<ExtArgs>
+  }
+
+  export type $IngredientePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Ingrediente"
+    objects: {
+      prato: Prisma.$PratoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nome: string
+      idPrato: number
+    }, ExtArgs["result"]["ingrediente"]>
+    composites: {}
+  }
+
+  type IngredienteGetPayload<S extends boolean | null | undefined | IngredienteDefaultArgs> = $Result.GetResult<Prisma.$IngredientePayload, S>
+
+  type IngredienteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IngredienteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IngredienteCountAggregateInputType | true
+    }
+
+  export interface IngredienteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Ingrediente'], meta: { name: 'Ingrediente' } }
+    /**
+     * Find zero or one Ingrediente that matches the filter.
+     * @param {IngredienteFindUniqueArgs} args - Arguments to find a Ingrediente
+     * @example
+     * // Get one Ingrediente
+     * const ingrediente = await prisma.ingrediente.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IngredienteFindUniqueArgs>(args: SelectSubset<T, IngredienteFindUniqueArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Ingrediente that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IngredienteFindUniqueOrThrowArgs} args - Arguments to find a Ingrediente
+     * @example
+     * // Get one Ingrediente
+     * const ingrediente = await prisma.ingrediente.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IngredienteFindUniqueOrThrowArgs>(args: SelectSubset<T, IngredienteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ingrediente that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteFindFirstArgs} args - Arguments to find a Ingrediente
+     * @example
+     * // Get one Ingrediente
+     * const ingrediente = await prisma.ingrediente.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IngredienteFindFirstArgs>(args?: SelectSubset<T, IngredienteFindFirstArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ingrediente that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteFindFirstOrThrowArgs} args - Arguments to find a Ingrediente
+     * @example
+     * // Get one Ingrediente
+     * const ingrediente = await prisma.ingrediente.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IngredienteFindFirstOrThrowArgs>(args?: SelectSubset<T, IngredienteFindFirstOrThrowArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Ingredientes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ingredientes
+     * const ingredientes = await prisma.ingrediente.findMany()
+     * 
+     * // Get first 10 Ingredientes
+     * const ingredientes = await prisma.ingrediente.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ingredienteWithIdOnly = await prisma.ingrediente.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IngredienteFindManyArgs>(args?: SelectSubset<T, IngredienteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Ingrediente.
+     * @param {IngredienteCreateArgs} args - Arguments to create a Ingrediente.
+     * @example
+     * // Create one Ingrediente
+     * const Ingrediente = await prisma.ingrediente.create({
+     *   data: {
+     *     // ... data to create a Ingrediente
+     *   }
+     * })
+     * 
+     */
+    create<T extends IngredienteCreateArgs>(args: SelectSubset<T, IngredienteCreateArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Ingredientes.
+     * @param {IngredienteCreateManyArgs} args - Arguments to create many Ingredientes.
+     * @example
+     * // Create many Ingredientes
+     * const ingrediente = await prisma.ingrediente.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IngredienteCreateManyArgs>(args?: SelectSubset<T, IngredienteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Ingredientes and returns the data saved in the database.
+     * @param {IngredienteCreateManyAndReturnArgs} args - Arguments to create many Ingredientes.
+     * @example
+     * // Create many Ingredientes
+     * const ingrediente = await prisma.ingrediente.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Ingredientes and only return the `id`
+     * const ingredienteWithIdOnly = await prisma.ingrediente.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IngredienteCreateManyAndReturnArgs>(args?: SelectSubset<T, IngredienteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Ingrediente.
+     * @param {IngredienteDeleteArgs} args - Arguments to delete one Ingrediente.
+     * @example
+     * // Delete one Ingrediente
+     * const Ingrediente = await prisma.ingrediente.delete({
+     *   where: {
+     *     // ... filter to delete one Ingrediente
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IngredienteDeleteArgs>(args: SelectSubset<T, IngredienteDeleteArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Ingrediente.
+     * @param {IngredienteUpdateArgs} args - Arguments to update one Ingrediente.
+     * @example
+     * // Update one Ingrediente
+     * const ingrediente = await prisma.ingrediente.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IngredienteUpdateArgs>(args: SelectSubset<T, IngredienteUpdateArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Ingredientes.
+     * @param {IngredienteDeleteManyArgs} args - Arguments to filter Ingredientes to delete.
+     * @example
+     * // Delete a few Ingredientes
+     * const { count } = await prisma.ingrediente.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IngredienteDeleteManyArgs>(args?: SelectSubset<T, IngredienteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ingredientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ingredientes
+     * const ingrediente = await prisma.ingrediente.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IngredienteUpdateManyArgs>(args: SelectSubset<T, IngredienteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ingredientes and returns the data updated in the database.
+     * @param {IngredienteUpdateManyAndReturnArgs} args - Arguments to update many Ingredientes.
+     * @example
+     * // Update many Ingredientes
+     * const ingrediente = await prisma.ingrediente.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Ingredientes and only return the `id`
+     * const ingredienteWithIdOnly = await prisma.ingrediente.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IngredienteUpdateManyAndReturnArgs>(args: SelectSubset<T, IngredienteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Ingrediente.
+     * @param {IngredienteUpsertArgs} args - Arguments to update or create a Ingrediente.
+     * @example
+     * // Update or create a Ingrediente
+     * const ingrediente = await prisma.ingrediente.upsert({
+     *   create: {
+     *     // ... data to create a Ingrediente
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Ingrediente we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IngredienteUpsertArgs>(args: SelectSubset<T, IngredienteUpsertArgs<ExtArgs>>): Prisma__IngredienteClient<$Result.GetResult<Prisma.$IngredientePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Ingredientes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteCountArgs} args - Arguments to filter Ingredientes to count.
+     * @example
+     * // Count the number of Ingredientes
+     * const count = await prisma.ingrediente.count({
+     *   where: {
+     *     // ... the filter for the Ingredientes we want to count
+     *   }
+     * })
+    **/
+    count<T extends IngredienteCountArgs>(
+      args?: Subset<T, IngredienteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IngredienteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Ingrediente.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IngredienteAggregateArgs>(args: Subset<T, IngredienteAggregateArgs>): Prisma.PrismaPromise<GetIngredienteAggregateType<T>>
+
+    /**
+     * Group by Ingrediente.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IngredienteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IngredienteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IngredienteGroupByArgs['orderBy'] }
+        : { orderBy?: IngredienteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IngredienteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIngredienteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Ingrediente model
+   */
+  readonly fields: IngredienteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Ingrediente.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IngredienteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    prato<T extends PratoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PratoDefaultArgs<ExtArgs>>): Prisma__PratoClient<$Result.GetResult<Prisma.$PratoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Ingrediente model
+   */
+  interface IngredienteFieldRefs {
+    readonly id: FieldRef<"Ingrediente", 'Int'>
+    readonly nome: FieldRef<"Ingrediente", 'String'>
+    readonly idPrato: FieldRef<"Ingrediente", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Ingrediente findUnique
+   */
+  export type IngredienteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter, which Ingrediente to fetch.
+     */
+    where: IngredienteWhereUniqueInput
+  }
+
+  /**
+   * Ingrediente findUniqueOrThrow
+   */
+  export type IngredienteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter, which Ingrediente to fetch.
+     */
+    where: IngredienteWhereUniqueInput
+  }
+
+  /**
+   * Ingrediente findFirst
+   */
+  export type IngredienteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter, which Ingrediente to fetch.
+     */
+    where?: IngredienteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ingredientes to fetch.
+     */
+    orderBy?: IngredienteOrderByWithRelationInput | IngredienteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ingredientes.
+     */
+    cursor?: IngredienteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ingredientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ingredientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ingredientes.
+     */
+    distinct?: IngredienteScalarFieldEnum | IngredienteScalarFieldEnum[]
+  }
+
+  /**
+   * Ingrediente findFirstOrThrow
+   */
+  export type IngredienteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter, which Ingrediente to fetch.
+     */
+    where?: IngredienteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ingredientes to fetch.
+     */
+    orderBy?: IngredienteOrderByWithRelationInput | IngredienteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ingredientes.
+     */
+    cursor?: IngredienteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ingredientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ingredientes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ingredientes.
+     */
+    distinct?: IngredienteScalarFieldEnum | IngredienteScalarFieldEnum[]
+  }
+
+  /**
+   * Ingrediente findMany
+   */
+  export type IngredienteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter, which Ingredientes to fetch.
+     */
+    where?: IngredienteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ingredientes to fetch.
+     */
+    orderBy?: IngredienteOrderByWithRelationInput | IngredienteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ingredientes.
+     */
+    cursor?: IngredienteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ingredientes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ingredientes.
+     */
+    skip?: number
+    distinct?: IngredienteScalarFieldEnum | IngredienteScalarFieldEnum[]
+  }
+
+  /**
+   * Ingrediente create
+   */
+  export type IngredienteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Ingrediente.
+     */
+    data: XOR<IngredienteCreateInput, IngredienteUncheckedCreateInput>
+  }
+
+  /**
+   * Ingrediente createMany
+   */
+  export type IngredienteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Ingredientes.
+     */
+    data: IngredienteCreateManyInput | IngredienteCreateManyInput[]
+  }
+
+  /**
+   * Ingrediente createManyAndReturn
+   */
+  export type IngredienteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Ingredientes.
+     */
+    data: IngredienteCreateManyInput | IngredienteCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ingrediente update
+   */
+  export type IngredienteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Ingrediente.
+     */
+    data: XOR<IngredienteUpdateInput, IngredienteUncheckedUpdateInput>
+    /**
+     * Choose, which Ingrediente to update.
+     */
+    where: IngredienteWhereUniqueInput
+  }
+
+  /**
+   * Ingrediente updateMany
+   */
+  export type IngredienteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ingredientes.
+     */
+    data: XOR<IngredienteUpdateManyMutationInput, IngredienteUncheckedUpdateManyInput>
+    /**
+     * Filter which Ingredientes to update
+     */
+    where?: IngredienteWhereInput
+    /**
+     * Limit how many Ingredientes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ingrediente updateManyAndReturn
+   */
+  export type IngredienteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * The data used to update Ingredientes.
+     */
+    data: XOR<IngredienteUpdateManyMutationInput, IngredienteUncheckedUpdateManyInput>
+    /**
+     * Filter which Ingredientes to update
+     */
+    where?: IngredienteWhereInput
+    /**
+     * Limit how many Ingredientes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ingrediente upsert
+   */
+  export type IngredienteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Ingrediente to update in case it exists.
+     */
+    where: IngredienteWhereUniqueInput
+    /**
+     * In case the Ingrediente found by the `where` argument doesn't exist, create a new Ingrediente with this data.
+     */
+    create: XOR<IngredienteCreateInput, IngredienteUncheckedCreateInput>
+    /**
+     * In case the Ingrediente was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IngredienteUpdateInput, IngredienteUncheckedUpdateInput>
+  }
+
+  /**
+   * Ingrediente delete
+   */
+  export type IngredienteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
+    /**
+     * Filter which Ingrediente to delete.
+     */
+    where: IngredienteWhereUniqueInput
+  }
+
+  /**
+   * Ingrediente deleteMany
+   */
+  export type IngredienteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ingredientes to delete
+     */
+    where?: IngredienteWhereInput
+    /**
+     * Limit how many Ingredientes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ingrediente without action
+   */
+  export type IngredienteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingrediente
+     */
+    select?: IngredienteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingrediente
+     */
+    omit?: IngredienteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredienteInclude<ExtArgs> | null
   }
 
 
@@ -5686,12 +6869,20 @@ export namespace Prisma {
     id: 'id',
     nome: 'nome',
     categoria: 'categoria',
-    ingredientes: 'ingredientes',
     preparo: 'preparo',
     idUsuario: 'idUsuario'
   };
 
   export type PratoScalarFieldEnum = (typeof PratoScalarFieldEnum)[keyof typeof PratoScalarFieldEnum]
+
+
+  export const IngredienteScalarFieldEnum: {
+    id: 'id',
+    nome: 'nome',
+    idPrato: 'idPrato'
+  };
+
+  export type IngredienteScalarFieldEnum = (typeof IngredienteScalarFieldEnum)[keyof typeof IngredienteScalarFieldEnum]
 
 
   export const DiaScalarFieldEnum: {
@@ -5814,10 +7005,10 @@ export namespace Prisma {
     id?: IntFilter<"Prato"> | number
     nome?: StringFilter<"Prato"> | string
     categoria?: StringFilter<"Prato"> | string
-    ingredientes?: StringNullableFilter<"Prato"> | string | null
     preparo?: StringNullableFilter<"Prato"> | string | null
     idUsuario?: IntFilter<"Prato"> | number
     pratoDia?: PratoDiaListRelationFilter
+    ingredientes?: IngredienteListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
@@ -5825,10 +7016,10 @@ export namespace Prisma {
     id?: SortOrder
     nome?: SortOrder
     categoria?: SortOrder
-    ingredientes?: SortOrderInput | SortOrder
     preparo?: SortOrderInput | SortOrder
     idUsuario?: SortOrder
     pratoDia?: PratoDiaOrderByRelationAggregateInput
+    ingredientes?: IngredienteOrderByRelationAggregateInput
     usuario?: UsuarioOrderByWithRelationInput
   }
 
@@ -5839,10 +7030,10 @@ export namespace Prisma {
     NOT?: PratoWhereInput | PratoWhereInput[]
     nome?: StringFilter<"Prato"> | string
     categoria?: StringFilter<"Prato"> | string
-    ingredientes?: StringNullableFilter<"Prato"> | string | null
     preparo?: StringNullableFilter<"Prato"> | string | null
     idUsuario?: IntFilter<"Prato"> | number
     pratoDia?: PratoDiaListRelationFilter
+    ingredientes?: IngredienteListRelationFilter
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
@@ -5850,7 +7041,6 @@ export namespace Prisma {
     id?: SortOrder
     nome?: SortOrder
     categoria?: SortOrder
-    ingredientes?: SortOrderInput | SortOrder
     preparo?: SortOrderInput | SortOrder
     idUsuario?: SortOrder
     _count?: PratoCountOrderByAggregateInput
@@ -5867,9 +7057,55 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Prato"> | number
     nome?: StringWithAggregatesFilter<"Prato"> | string
     categoria?: StringWithAggregatesFilter<"Prato"> | string
-    ingredientes?: StringNullableWithAggregatesFilter<"Prato"> | string | null
     preparo?: StringNullableWithAggregatesFilter<"Prato"> | string | null
     idUsuario?: IntWithAggregatesFilter<"Prato"> | number
+  }
+
+  export type IngredienteWhereInput = {
+    AND?: IngredienteWhereInput | IngredienteWhereInput[]
+    OR?: IngredienteWhereInput[]
+    NOT?: IngredienteWhereInput | IngredienteWhereInput[]
+    id?: IntFilter<"Ingrediente"> | number
+    nome?: StringFilter<"Ingrediente"> | string
+    idPrato?: IntFilter<"Ingrediente"> | number
+    prato?: XOR<PratoScalarRelationFilter, PratoWhereInput>
+  }
+
+  export type IngredienteOrderByWithRelationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    idPrato?: SortOrder
+    prato?: PratoOrderByWithRelationInput
+  }
+
+  export type IngredienteWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: IngredienteWhereInput | IngredienteWhereInput[]
+    OR?: IngredienteWhereInput[]
+    NOT?: IngredienteWhereInput | IngredienteWhereInput[]
+    nome?: StringFilter<"Ingrediente"> | string
+    idPrato?: IntFilter<"Ingrediente"> | number
+    prato?: XOR<PratoScalarRelationFilter, PratoWhereInput>
+  }, "id">
+
+  export type IngredienteOrderByWithAggregationInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    idPrato?: SortOrder
+    _count?: IngredienteCountOrderByAggregateInput
+    _avg?: IngredienteAvgOrderByAggregateInput
+    _max?: IngredienteMaxOrderByAggregateInput
+    _min?: IngredienteMinOrderByAggregateInput
+    _sum?: IngredienteSumOrderByAggregateInput
+  }
+
+  export type IngredienteScalarWhereWithAggregatesInput = {
+    AND?: IngredienteScalarWhereWithAggregatesInput | IngredienteScalarWhereWithAggregatesInput[]
+    OR?: IngredienteScalarWhereWithAggregatesInput[]
+    NOT?: IngredienteScalarWhereWithAggregatesInput | IngredienteScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Ingrediente"> | number
+    nome?: StringWithAggregatesFilter<"Ingrediente"> | string
+    idPrato?: IntWithAggregatesFilter<"Ingrediente"> | number
   }
 
   export type DiaWhereInput = {
@@ -6022,9 +7258,9 @@ export namespace Prisma {
   export type PratoCreateInput = {
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     pratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
+    ingredientes?: IngredienteCreateNestedManyWithoutPratoInput
     usuario: UsuarioCreateNestedOneWithoutPratosInput
   }
 
@@ -6032,18 +7268,18 @@ export namespace Prisma {
     id?: number
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     idUsuario: number
     pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
+    ingredientes?: IngredienteUncheckedCreateNestedManyWithoutPratoInput
   }
 
   export type PratoUpdateInput = {
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     pratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
+    ingredientes?: IngredienteUpdateManyWithoutPratoNestedInput
     usuario?: UsuarioUpdateOneRequiredWithoutPratosNestedInput
   }
 
@@ -6051,17 +7287,16 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     idUsuario?: IntFieldUpdateOperationsInput | number
     pratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
+    ingredientes?: IngredienteUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoCreateManyInput = {
     id?: number
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     idUsuario: number
   }
@@ -6069,7 +7304,6 @@ export namespace Prisma {
   export type PratoUpdateManyMutationInput = {
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -6077,9 +7311,46 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     idUsuario?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IngredienteCreateInput = {
+    nome: string
+    prato: PratoCreateNestedOneWithoutIngredientesInput
+  }
+
+  export type IngredienteUncheckedCreateInput = {
+    id?: number
+    nome: string
+    idPrato: number
+  }
+
+  export type IngredienteUpdateInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    prato?: PratoUpdateOneRequiredWithoutIngredientesNestedInput
+  }
+
+  export type IngredienteUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    idPrato?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IngredienteCreateManyInput = {
+    id?: number
+    nome: string
+    idPrato: number
+  }
+
+  export type IngredienteUpdateManyMutationInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IngredienteUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    idPrato?: IntFieldUpdateOperationsInput | number
   }
 
   export type DiaCreateInput = {
@@ -6286,6 +7557,12 @@ export namespace Prisma {
     none?: PratoDiaWhereInput
   }
 
+  export type IngredienteListRelationFilter = {
+    every?: IngredienteWhereInput
+    some?: IngredienteWhereInput
+    none?: IngredienteWhereInput
+  }
+
   export type UsuarioScalarRelationFilter = {
     is?: UsuarioWhereInput
     isNot?: UsuarioWhereInput
@@ -6300,11 +7577,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type IngredienteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PratoCountOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
     categoria?: SortOrder
-    ingredientes?: SortOrder
     preparo?: SortOrder
     idUsuario?: SortOrder
   }
@@ -6318,7 +7598,6 @@ export namespace Prisma {
     id?: SortOrder
     nome?: SortOrder
     categoria?: SortOrder
-    ingredientes?: SortOrder
     preparo?: SortOrder
     idUsuario?: SortOrder
   }
@@ -6327,7 +7606,6 @@ export namespace Prisma {
     id?: SortOrder
     nome?: SortOrder
     categoria?: SortOrder
-    ingredientes?: SortOrder
     preparo?: SortOrder
     idUsuario?: SortOrder
   }
@@ -6352,6 +7630,39 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type PratoScalarRelationFilter = {
+    is?: PratoWhereInput
+    isNot?: PratoWhereInput
+  }
+
+  export type IngredienteCountOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    idPrato?: SortOrder
+  }
+
+  export type IngredienteAvgOrderByAggregateInput = {
+    id?: SortOrder
+    idPrato?: SortOrder
+  }
+
+  export type IngredienteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    idPrato?: SortOrder
+  }
+
+  export type IngredienteMinOrderByAggregateInput = {
+    id?: SortOrder
+    nome?: SortOrder
+    idPrato?: SortOrder
+  }
+
+  export type IngredienteSumOrderByAggregateInput = {
+    id?: SortOrder
+    idPrato?: SortOrder
   }
 
   export type DiaCountOrderByAggregateInput = {
@@ -6385,11 +7696,6 @@ export namespace Prisma {
   export type DiaScalarRelationFilter = {
     is?: DiaWhereInput
     isNot?: DiaWhereInput
-  }
-
-  export type PratoScalarRelationFilter = {
-    is?: PratoWhereInput
-    isNot?: PratoWhereInput
   }
 
   export type PratoDiaCountOrderByAggregateInput = {
@@ -6525,6 +7831,13 @@ export namespace Prisma {
     connect?: PratoDiaWhereUniqueInput | PratoDiaWhereUniqueInput[]
   }
 
+  export type IngredienteCreateNestedManyWithoutPratoInput = {
+    create?: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput> | IngredienteCreateWithoutPratoInput[] | IngredienteUncheckedCreateWithoutPratoInput[]
+    connectOrCreate?: IngredienteCreateOrConnectWithoutPratoInput | IngredienteCreateOrConnectWithoutPratoInput[]
+    createMany?: IngredienteCreateManyPratoInputEnvelope
+    connect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+  }
+
   export type UsuarioCreateNestedOneWithoutPratosInput = {
     create?: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutPratosInput
@@ -6536,6 +7849,13 @@ export namespace Prisma {
     connectOrCreate?: PratoDiaCreateOrConnectWithoutPratoInput | PratoDiaCreateOrConnectWithoutPratoInput[]
     createMany?: PratoDiaCreateManyPratoInputEnvelope
     connect?: PratoDiaWhereUniqueInput | PratoDiaWhereUniqueInput[]
+  }
+
+  export type IngredienteUncheckedCreateNestedManyWithoutPratoInput = {
+    create?: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput> | IngredienteCreateWithoutPratoInput[] | IngredienteUncheckedCreateWithoutPratoInput[]
+    connectOrCreate?: IngredienteCreateOrConnectWithoutPratoInput | IngredienteCreateOrConnectWithoutPratoInput[]
+    createMany?: IngredienteCreateManyPratoInputEnvelope
+    connect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -6554,6 +7874,20 @@ export namespace Prisma {
     update?: PratoDiaUpdateWithWhereUniqueWithoutPratoInput | PratoDiaUpdateWithWhereUniqueWithoutPratoInput[]
     updateMany?: PratoDiaUpdateManyWithWhereWithoutPratoInput | PratoDiaUpdateManyWithWhereWithoutPratoInput[]
     deleteMany?: PratoDiaScalarWhereInput | PratoDiaScalarWhereInput[]
+  }
+
+  export type IngredienteUpdateManyWithoutPratoNestedInput = {
+    create?: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput> | IngredienteCreateWithoutPratoInput[] | IngredienteUncheckedCreateWithoutPratoInput[]
+    connectOrCreate?: IngredienteCreateOrConnectWithoutPratoInput | IngredienteCreateOrConnectWithoutPratoInput[]
+    upsert?: IngredienteUpsertWithWhereUniqueWithoutPratoInput | IngredienteUpsertWithWhereUniqueWithoutPratoInput[]
+    createMany?: IngredienteCreateManyPratoInputEnvelope
+    set?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    disconnect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    delete?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    connect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    update?: IngredienteUpdateWithWhereUniqueWithoutPratoInput | IngredienteUpdateWithWhereUniqueWithoutPratoInput[]
+    updateMany?: IngredienteUpdateManyWithWhereWithoutPratoInput | IngredienteUpdateManyWithWhereWithoutPratoInput[]
+    deleteMany?: IngredienteScalarWhereInput | IngredienteScalarWhereInput[]
   }
 
   export type UsuarioUpdateOneRequiredWithoutPratosNestedInput = {
@@ -6576,6 +7910,34 @@ export namespace Prisma {
     update?: PratoDiaUpdateWithWhereUniqueWithoutPratoInput | PratoDiaUpdateWithWhereUniqueWithoutPratoInput[]
     updateMany?: PratoDiaUpdateManyWithWhereWithoutPratoInput | PratoDiaUpdateManyWithWhereWithoutPratoInput[]
     deleteMany?: PratoDiaScalarWhereInput | PratoDiaScalarWhereInput[]
+  }
+
+  export type IngredienteUncheckedUpdateManyWithoutPratoNestedInput = {
+    create?: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput> | IngredienteCreateWithoutPratoInput[] | IngredienteUncheckedCreateWithoutPratoInput[]
+    connectOrCreate?: IngredienteCreateOrConnectWithoutPratoInput | IngredienteCreateOrConnectWithoutPratoInput[]
+    upsert?: IngredienteUpsertWithWhereUniqueWithoutPratoInput | IngredienteUpsertWithWhereUniqueWithoutPratoInput[]
+    createMany?: IngredienteCreateManyPratoInputEnvelope
+    set?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    disconnect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    delete?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    connect?: IngredienteWhereUniqueInput | IngredienteWhereUniqueInput[]
+    update?: IngredienteUpdateWithWhereUniqueWithoutPratoInput | IngredienteUpdateWithWhereUniqueWithoutPratoInput[]
+    updateMany?: IngredienteUpdateManyWithWhereWithoutPratoInput | IngredienteUpdateManyWithWhereWithoutPratoInput[]
+    deleteMany?: IngredienteScalarWhereInput | IngredienteScalarWhereInput[]
+  }
+
+  export type PratoCreateNestedOneWithoutIngredientesInput = {
+    create?: XOR<PratoCreateWithoutIngredientesInput, PratoUncheckedCreateWithoutIngredientesInput>
+    connectOrCreate?: PratoCreateOrConnectWithoutIngredientesInput
+    connect?: PratoWhereUniqueInput
+  }
+
+  export type PratoUpdateOneRequiredWithoutIngredientesNestedInput = {
+    create?: XOR<PratoCreateWithoutIngredientesInput, PratoUncheckedCreateWithoutIngredientesInput>
+    connectOrCreate?: PratoCreateOrConnectWithoutIngredientesInput
+    upsert?: PratoUpsertWithoutIngredientesInput
+    connect?: PratoWhereUniqueInput
+    update?: XOR<XOR<PratoUpdateToOneWithWhereWithoutIngredientesInput, PratoUpdateWithoutIngredientesInput>, PratoUncheckedUpdateWithoutIngredientesInput>
   }
 
   export type PratoDiaCreateNestedManyWithoutDiaInput = {
@@ -6776,18 +8138,18 @@ export namespace Prisma {
   export type PratoCreateWithoutUsuarioInput = {
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     pratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
+    ingredientes?: IngredienteCreateNestedManyWithoutPratoInput
   }
 
   export type PratoUncheckedCreateWithoutUsuarioInput = {
     id?: number
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
+    ingredientes?: IngredienteUncheckedCreateNestedManyWithoutPratoInput
   }
 
   export type PratoCreateOrConnectWithoutUsuarioInput = {
@@ -6842,7 +8204,6 @@ export namespace Prisma {
     id?: IntFilter<"Prato"> | number
     nome?: StringFilter<"Prato"> | string
     categoria?: StringFilter<"Prato"> | string
-    ingredientes?: StringNullableFilter<"Prato"> | string | null
     preparo?: StringNullableFilter<"Prato"> | string | null
     idUsuario?: IntFilter<"Prato"> | number
   }
@@ -6890,6 +8251,24 @@ export namespace Prisma {
     data: PratoDiaCreateManyPratoInput | PratoDiaCreateManyPratoInput[]
   }
 
+  export type IngredienteCreateWithoutPratoInput = {
+    nome: string
+  }
+
+  export type IngredienteUncheckedCreateWithoutPratoInput = {
+    id?: number
+    nome: string
+  }
+
+  export type IngredienteCreateOrConnectWithoutPratoInput = {
+    where: IngredienteWhereUniqueInput
+    create: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput>
+  }
+
+  export type IngredienteCreateManyPratoInputEnvelope = {
+    data: IngredienteCreateManyPratoInput | IngredienteCreateManyPratoInput[]
+  }
+
   export type UsuarioCreateWithoutPratosInput = {
     nome: string
     senha: string
@@ -6933,6 +8312,31 @@ export namespace Prisma {
     idPrato?: IntFilter<"PratoDia"> | number
   }
 
+  export type IngredienteUpsertWithWhereUniqueWithoutPratoInput = {
+    where: IngredienteWhereUniqueInput
+    update: XOR<IngredienteUpdateWithoutPratoInput, IngredienteUncheckedUpdateWithoutPratoInput>
+    create: XOR<IngredienteCreateWithoutPratoInput, IngredienteUncheckedCreateWithoutPratoInput>
+  }
+
+  export type IngredienteUpdateWithWhereUniqueWithoutPratoInput = {
+    where: IngredienteWhereUniqueInput
+    data: XOR<IngredienteUpdateWithoutPratoInput, IngredienteUncheckedUpdateWithoutPratoInput>
+  }
+
+  export type IngredienteUpdateManyWithWhereWithoutPratoInput = {
+    where: IngredienteScalarWhereInput
+    data: XOR<IngredienteUpdateManyMutationInput, IngredienteUncheckedUpdateManyWithoutPratoInput>
+  }
+
+  export type IngredienteScalarWhereInput = {
+    AND?: IngredienteScalarWhereInput | IngredienteScalarWhereInput[]
+    OR?: IngredienteScalarWhereInput[]
+    NOT?: IngredienteScalarWhereInput | IngredienteScalarWhereInput[]
+    id?: IntFilter<"Ingrediente"> | number
+    nome?: StringFilter<"Ingrediente"> | string
+    idPrato?: IntFilter<"Ingrediente"> | number
+  }
+
   export type UsuarioUpsertWithoutPratosInput = {
     update: XOR<UsuarioUpdateWithoutPratosInput, UsuarioUncheckedUpdateWithoutPratosInput>
     create: XOR<UsuarioCreateWithoutPratosInput, UsuarioUncheckedCreateWithoutPratosInput>
@@ -6955,6 +8359,56 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
     dias?: DiaUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type PratoCreateWithoutIngredientesInput = {
+    nome: string
+    categoria: string
+    preparo?: string | null
+    pratoDia?: PratoDiaCreateNestedManyWithoutPratoInput
+    usuario: UsuarioCreateNestedOneWithoutPratosInput
+  }
+
+  export type PratoUncheckedCreateWithoutIngredientesInput = {
+    id?: number
+    nome: string
+    categoria: string
+    preparo?: string | null
+    idUsuario: number
+    pratoDia?: PratoDiaUncheckedCreateNestedManyWithoutPratoInput
+  }
+
+  export type PratoCreateOrConnectWithoutIngredientesInput = {
+    where: PratoWhereUniqueInput
+    create: XOR<PratoCreateWithoutIngredientesInput, PratoUncheckedCreateWithoutIngredientesInput>
+  }
+
+  export type PratoUpsertWithoutIngredientesInput = {
+    update: XOR<PratoUpdateWithoutIngredientesInput, PratoUncheckedUpdateWithoutIngredientesInput>
+    create: XOR<PratoCreateWithoutIngredientesInput, PratoUncheckedCreateWithoutIngredientesInput>
+    where?: PratoWhereInput
+  }
+
+  export type PratoUpdateToOneWithWhereWithoutIngredientesInput = {
+    where?: PratoWhereInput
+    data: XOR<PratoUpdateWithoutIngredientesInput, PratoUncheckedUpdateWithoutIngredientesInput>
+  }
+
+  export type PratoUpdateWithoutIngredientesInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    categoria?: StringFieldUpdateOperationsInput | string
+    preparo?: NullableStringFieldUpdateOperationsInput | string | null
+    pratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutPratosNestedInput
+  }
+
+  export type PratoUncheckedUpdateWithoutIngredientesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    categoria?: StringFieldUpdateOperationsInput | string
+    preparo?: NullableStringFieldUpdateOperationsInput | string | null
+    idUsuario?: IntFieldUpdateOperationsInput | number
+    pratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoDiaCreateWithoutDiaInput = {
@@ -7052,8 +8506,8 @@ export namespace Prisma {
   export type PratoCreateWithoutPratoDiaInput = {
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
+    ingredientes?: IngredienteCreateNestedManyWithoutPratoInput
     usuario: UsuarioCreateNestedOneWithoutPratosInput
   }
 
@@ -7061,9 +8515,9 @@ export namespace Prisma {
     id?: number
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
     idUsuario: number
+    ingredientes?: IngredienteUncheckedCreateNestedManyWithoutPratoInput
   }
 
   export type PratoCreateOrConnectWithoutPratoDiaInput = {
@@ -7107,8 +8561,8 @@ export namespace Prisma {
   export type PratoUpdateWithoutPratoDiaInput = {
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredientes?: IngredienteUpdateManyWithoutPratoNestedInput
     usuario?: UsuarioUpdateOneRequiredWithoutPratosNestedInput
   }
 
@@ -7116,16 +8570,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     idUsuario?: IntFieldUpdateOperationsInput | number
+    ingredientes?: IngredienteUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoCreateManyUsuarioInput = {
     id?: number
     nome: string
     categoria: string
-    ingredientes?: string | null
     preparo?: string | null
   }
 
@@ -7137,25 +8590,24 @@ export namespace Prisma {
   export type PratoUpdateWithoutUsuarioInput = {
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     pratoDia?: PratoDiaUpdateManyWithoutPratoNestedInput
+    ingredientes?: IngredienteUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoUncheckedUpdateWithoutUsuarioInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
     pratoDia?: PratoDiaUncheckedUpdateManyWithoutPratoNestedInput
+    ingredientes?: IngredienteUncheckedUpdateManyWithoutPratoNestedInput
   }
 
   export type PratoUncheckedUpdateManyWithoutUsuarioInput = {
     id?: IntFieldUpdateOperationsInput | number
     nome?: StringFieldUpdateOperationsInput | string
     categoria?: StringFieldUpdateOperationsInput | string
-    ingredientes?: NullableStringFieldUpdateOperationsInput | string | null
     preparo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -7180,6 +8632,11 @@ export namespace Prisma {
     idDia: number
   }
 
+  export type IngredienteCreateManyPratoInput = {
+    id?: number
+    nome: string
+  }
+
   export type PratoDiaUpdateWithoutPratoInput = {
     dia?: DiaUpdateOneRequiredWithoutPratoDiaNestedInput
   }
@@ -7192,6 +8649,20 @@ export namespace Prisma {
   export type PratoDiaUncheckedUpdateManyWithoutPratoInput = {
     id?: IntFieldUpdateOperationsInput | number
     idDia?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IngredienteUpdateWithoutPratoInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IngredienteUncheckedUpdateWithoutPratoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IngredienteUncheckedUpdateManyWithoutPratoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
   }
 
   export type PratoDiaCreateManyDiaInput = {

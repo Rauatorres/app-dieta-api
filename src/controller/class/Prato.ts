@@ -1,3 +1,4 @@
+import { Ingrediente } from "../../../generated/prisma";
 import prisma from "./prismaConnection";
 import Usuario from "./Usuario";
 
@@ -7,7 +8,7 @@ export default class Prato{
     constructor(
         public nome: string, 
         public categoria: string, 
-        public ingredientes?: string, 
+        public ingredientes: Ingrediente[], 
         public preparo?: string
     ){
         this.id = undefined;
@@ -18,7 +19,6 @@ export default class Prato{
             data:{
                 nome: this.nome,
                 categoria: this.categoria,
-                ingredientes: this.ingredientes,
                 preparo: this.preparo,
                 usuario: {
                     connect: { nome: usuario.nome }
@@ -60,6 +60,18 @@ export default class Prato{
         }else{
             return { error: 'Prato não definido' };
         }
-        
+    }
+
+    async adicionarIngrediente(data: Ingrediente){
+
+        const res = await prisma.ingrediente.create({
+            data: data
+        });
+
+        if(res){
+            this.ingredientes.push(res);
+        }
+
+        return res;
     }
 }

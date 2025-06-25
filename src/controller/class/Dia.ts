@@ -120,14 +120,13 @@ export default class Dia{
             });
             for(let pratoDia of pratoDiaQuery){
                 const prato = await prisma.prato.findFirst({
-                    where: { id: pratoDia.idPrato }
+                    where: { id: pratoDia.idPrato },
+                    include: { ingredientes: true }
                 });
                 if(prato){
                     this.pratos.push(new Prato(prato.nome, prato.categoria, prato.ingredientes || undefined, prato.preparo || undefined));
                 }
             }
-        }else{
-            console.log('Dia não definido');
         }
     }
 }

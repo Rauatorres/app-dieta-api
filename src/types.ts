@@ -1,3 +1,4 @@
+import { Ingrediente } from "../generated/prisma";
 import Usuario from "./controller/class/Usuario";
 
 interface UsuarioQueryResult{
@@ -12,7 +13,7 @@ interface PratoQueryResult{
     id: number;
     nome: string; 
     categoria: string; 
-    ingredientes: string | null; 
+    ingredientes: Ingrediente[]; 
     preparo: string | null;
     idUsuario: number;
 }

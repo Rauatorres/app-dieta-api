@@ -2,6 +2,14 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import Usuario from "./class/Usuario";
 // import type { QueryReturn } from "../types";
 
+const usuario = async (request: FastifyRequest, _reply: FastifyReply) => {
+    const reqParams = request.params as { nome: string };
+
+    const usuario = await Usuario.create(reqParams.nome);
+
+    return usuario.getUsuario();
+}
+
 const cadastrar = async (request: FastifyRequest, _reply: FastifyReply) => {
     const reqBody = request.body as { nome: string, senha: string };
 
@@ -44,4 +52,4 @@ const editar = async (request: FastifyRequest, _reply: FastifyReply) => {
     return await usuario.editar(reqBody.campos);
 }
 
-export { cadastrar, login, excluir, editar };
+export { usuario, cadastrar, login, excluir, editar };
