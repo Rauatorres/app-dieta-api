@@ -124,7 +124,7 @@ export default class Dia{
                     include: { ingredientes: true }
                 });
                 if(prato){
-                    this.pratos.push(new Prato(prato.nome, prato.categoria, prato.ingredientes || undefined, prato.preparo || undefined));
+                    this.pratos.push(new Prato(prato.nome, prato.categoria, prato.preparo || undefined));
                 }
             }
         }

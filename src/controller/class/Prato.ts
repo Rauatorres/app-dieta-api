@@ -4,14 +4,15 @@ import Usuario from "./Usuario";
 
 export default class Prato{
     id: number | undefined;
+    ingredientes: Ingrediente[];
 
     constructor(
         public nome: string, 
         public categoria: string, 
-        public ingredientes: Ingrediente[], 
         public preparo?: string
     ){
         this.id = undefined;
+        this.ingredientes = [];
     }
 
     async criar(usuario: Usuario){
@@ -29,7 +30,7 @@ export default class Prato{
             this.id = newPrato.id;
 
             usuario.pratos.push(this);
-            return true;
+            return newPrato;
         }else{
             return false;
         }
@@ -62,16 +63,23 @@ export default class Prato{
         }
     }
 
-    async adicionarIngrediente(data: Ingrediente){
+    async adicionarIngrediente(nome: string){
 
-        const res = await prisma.ingrediente.create({
-            data: data
-        });
-
-        if(res){
-            this.ingredientes.push(res);
+        if(this.id){
+            const res = await prisma.ingrediente.create({
+                data: {
+                    nome: nome,
+                    idPrato: this.id
+                }
+            });
+    
+            if(res){
+                this.ingredientes.push(res);
+            }
+    
+            return res;
+        }else{
+            return { msg: 'id do prato não reconhecido' };
         }
-
-        return res;
     }
 }

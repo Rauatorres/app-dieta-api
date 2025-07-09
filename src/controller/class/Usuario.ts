@@ -33,9 +33,10 @@ export default class Usuario{
             return false;
         }
     }
-
+    
     private async init(): Promise<void>{
         if(await this.usuarioExiste()){
+            
             const usuario = await prisma.usuario.findUnique(
                 {
                     where: {
@@ -65,8 +66,9 @@ export default class Usuario{
                         ingredientesVerif = ingredientes;
                     }
     
-                    const prato = new Prato(nome, categoria, ingredientesVerif, preparo || undefined);
+                    const prato = new Prato(nome, categoria, preparo || undefined);
                     prato.id = id;
+                    prato.ingredientes = ingredientesVerif;
     
                     this.pratos.push(prato);
                 });

@@ -1,14 +1,15 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { cadastrar, editar, excluir, login, usuario } from "./controller/usuario";
 // import Usuario from "./controller/class/Usuario";
-import { addPrato, editarPrato, excluirPrato } from "./controller/pratos";
+import { addPrato, adicionarIngrediente, editarIngrediente, editarPrato, excluirIngrediente, excluirPrato } from "./controller/pratos";
 import { addDia, adicionarPratoAoDia, editarDia, excluirDia, removerPratoDoDia } from "./controller/dias";
 
 async function controllerFunctionSeParamPratoOuDia(
     params: { objeto: string }, 
     callback: {
         pratoFunction: Function,
-        diaFunction: Function
+        diaFunction: Function,
+        ingredienteFunction?: Function
     },
     route: {
         request: FastifyRequest,
@@ -22,6 +23,9 @@ async function controllerFunctionSeParamPratoOuDia(
             break;
         case 'dia':
             returnFunction = callback.diaFunction;
+            break;
+        case 'ingrediente':
+            returnFunction = callback.ingredienteFunction!;
             break;
         default:
             returnFunction = async (_request: FastifyRequest, _reply: FastifyReply) => {
@@ -67,26 +71,32 @@ export default (fastify: FastifyInstance) => {
         });
     });
 
-    fastify.delete('/excluir/:objeto', async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.delete('/:objeto/:id', async (request: FastifyRequest, reply: FastifyReply) => {
         const reqParams = request.params as { objeto: string };
         return await controllerFunctionSeParamPratoOuDia(reqParams, {
             pratoFunction: excluirPrato,
-            diaFunction: excluirDia
+            diaFunction: excluirDia,
+            ingredienteFunction: excluirIngrediente
         }, {
             request: request,
             reply: reply
         });
     });
 
-    fastify.put('/editar/:objeto', async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.put('/:objeto/:id', async (request: FastifyRequest, reply: FastifyReply) => {
         const reqParams = request.params as { objeto: string };
         return await controllerFunctionSeParamPratoOuDia(reqParams, {
             pratoFunction: editarPrato,
-            diaFunction: editarDia
+            diaFunction: editarDia,
+            ingredienteFunction: editarIngrediente
         }, {
             request: request,
             reply: reply
         });
+    });
+
+    fastify.post('/novo/ingrediente/:idprato', async (request: FastifyRequest, reply: FastifyReply) => {
+        return await adicionarIngrediente(request, reply);
     });
 
     fastify.post('/adicionarPratoAoDia', async (request: FastifyRequest, reply: FastifyReply) => {
